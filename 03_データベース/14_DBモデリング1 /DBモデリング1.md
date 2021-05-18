@@ -118,8 +118,8 @@ end note
 Entity OrderMenu {
   + id: string
   --
-  orderId: string
-  menuId: string
+  orderId: string [fk]
+  menuId: string [fk]
   sabi: boolean
   quantity: number
 }
