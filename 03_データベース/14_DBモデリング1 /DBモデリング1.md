@@ -17,7 +17,7 @@
   - 注文したユーザーに連絡する
   - 任意のメニューをお持ち帰り不可にする
 
-### テーブル設計
+### テーブル設計 (原案)
 
 ![diagram](assets/diagram.svg)
 
@@ -198,56 +198,13 @@ RegisterSushiNetaInMenu }o--|| SushiNeta
 - SalePrice
 - SetSalePriceToMenu
 
-![diagram2](assets/diagram2.svg)
+### テーブル設計 (最終案)
+
+![diagram2](assets/diagram3.svg)
 
 <details><summary>ER図コード</summary>
 
 ```plantuml
-Entity OrderType {
-  + id: string
-  --
-  type: string
-}
-note left
-type は
-"持ち帰り",
-"店内",
-"配達" など
-end note
-
-Entity RegisterMenuInOrderType {
-  + id: string
-  --
-  orderTypeId: string [fk]
-  menuId: string[fk]
-}
-
-Entity MenuCategory {
-  + id: string
-  --
-  name: string
-}
-note right
-"セットメニュー"
-"お好みすし" など
-end note
-
-Entity MenuSubCategory {
-  + id: string
-  --
-  name: string
-  parentCategoryId: string [fk]
-}
-note right
-"盛り込み", "にぎり"
-"一皿100円(税別)" など
-
-<-> Menuは中間テーブル
-にしても良いかも
-("おすすめ" と "一皿X円"
-に重複して表示したい場合がありそう)
-end note
-
 Entity Menu {
   + id: string
   --
@@ -261,75 +218,152 @@ note right
 "玉子", "炙りえんがわ" など
 end note
 
-OrderType ||--o{ RegisterMenuInOrderType
-RegisterMenuInOrderType }o--|| Menu
-MenuCategory ||--o{ MenuSubCategory
-MenuSubCategory ||--o{ Menu
+package メニュー表示 {
+  Entity MenuCategory {
+    + id: string
+    --
+    name: string
+  }
+  note left
+  "セットメニュー"
+  "お好みすし" など
+  end note
 
-Entity SushiNeta {
-  + id: string
-  --
-  name: string
-}
-note right
-"玉子", "マグロ", "サーモン"
-など
-end note
+  Entity MenuSubCategory {
+    + id: string
+    --
+    name: string
+    parentCategoryId: string [fk]
+  }
+  note left
+  "盛り込み", "にぎり"
+  "一皿100円(税別)" など
 
-Entity RegisterSushiNetaInMenu {
-  + id: string
-  --
-  menuId: string [fk]
-  sushiNetaId: string [fk]
-}
+  end note
 
-Entity Order {
-  + id: string
-  --
-  userId: string [fk]
-  orderStatusId: string [fk]
-  orderedAt: date
-}
-note left
-注文のリスト
-end note
+  Entity RegisterMenuInMenuSubCategory {
+    + id: string
+    --
+    menuId: string [fk]
+    subCategoryId: string [fk]
+  }
+  note left
+  あるメニューを
+  "おすすめ" と "一皿X円"
+  に重複して表示したい場合がありそう
+  なので多対多とした。
+  end note
 
-Entity OrderMenu {
-  + id: string
-  --
-  orderId: string [fk]
-  menuId: string [fk]
-  sabi: boolean
-  quantity: number
-}
+  Entity OrderType {
+    + id: string
+    --
+    type: string
+  }
+  note left
+  type は
+  "持ち帰り",
+  "店内",
+  "配達" など
+  end note
 
-Entity ShariSize {
-  + id: string
-  --
-  size: string
-}
-note bottom
-"small", "medium", "large"
-のどれか
-end note
+  Entity RegisterMenuInOrderType {
+    + id: string
+    --
+    orderTypeId: string [fk]
+    menuId: string[fk]
+  }
 
-Entity User {
-  + id: string
-  --
-  name: string
-  phone_number: string
+  OrderType ||--o{ RegisterMenuInOrderType
+  RegisterMenuInOrderType }o--|| Menu
+  MenuCategory ||--o{ MenuSubCategory
+  MenuSubCategory ||--o{ RegisterMenuInMenuSubCategory
+  RegisterMenuInMenuSubCategory }o--|| Menu
 }
 
-Entity OrderStatus {
-  + id: string
-  --
-  status: string
+
+
+package 注文管理 {
+  Entity Order {
+    + id: string
+    --
+    userId: string [fk]
+    orderStatusId: string [fk]
+    orderedAt: date
+  }
+  note left
+  注文のリスト
+  end note
+
+  Entity OrderMenu {
+    + id: string
+    --
+    orderId: string [fk]
+    menuId: string [fk]
+    sabi: boolean
+    quantity: number
+  }
+
+  Entity ShariSize {
+    + id: string
+    --
+    size: string
+  }
+  note bottom
+  "small", "medium", "large"
+  のどれか
+  end note
+
+  Entity User {
+    + id: string
+    --
+    name: string
+    phone_number: string
+  }
+
+  Entity OrderStatus {
+    + id: string
+    --
+    status: string
+  }
+  note bottom
+  "注文受付"
+  "支払い済み"
+  "受け渡し済み" など
+  end note
+
+  Order ||--o{ OrderMenu
+  Order }o--|| User
+  Order }o--|| OrderStatus
+  OrderMenu }o--|| Menu
+  OrderMenu }o--|| ShariSize
 }
-note bottom
-"注文受付"
-"支払い済み"
-"受け渡し済み" など
-end note
+
+package 寿司ネタ集計 {
+  Entity SushiNeta {
+    + id: string
+    --
+    name: string
+  }
+  note left
+  "玉子", "マグロ", "サーモン"
+  など
+  end note
+
+  Entity RegisterSushiNetaInMenu {
+    + id: string
+    --
+    menuId: string [fk]
+    sushiNetaId: string [fk]
+    quantity: number
+  }
+  note left
+  あるメニューに含まれる
+  寿司ネタ, その量を登録
+  end note
+
+  Menu ||--o{ RegisterSushiNetaInMenu
+  RegisterSushiNetaInMenu }o--|| SushiNeta
+}
 
 Entity SalePrice {
   + id: string
@@ -346,18 +380,9 @@ Entity SetSalePriceToMenu {
   startAt: date
   entAt: date
 }
-note left: セールの期間を設定
+note right: セールの期間を設定
 
-Menu -- SetSalePriceToMenu
-SetSalePriceToMenu }o-- SalePrice
-
-Order ||--o{ OrderMenu
-Order }o--|| User
-Order }o--|| OrderStatus
-OrderMenu }o--|| Menu
-OrderMenu }o--|| ShariSize
-
-Menu ||--o{ RegisterSushiNetaInMenu
-RegisterSushiNetaInMenu }o--|| SushiNeta
+Menu ||--o{ SetSalePriceToMenu
+SetSalePriceToMenu }o--|| SalePrice
 ```
 </details>
