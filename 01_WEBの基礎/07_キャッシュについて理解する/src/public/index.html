@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cache Test</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+      }
+      .cache {
+        position: relative;
+        width: 200px;
+      }
+      img {
+        width: 100%;
+      }
+      .cache > p {
+        margin: 0;
+        background-color: #ebebeb;
+        padding: 0.2em 0.5em;
+        position: absolute;
+        top: 0;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cache Test</h1>
+    <div class="container">
+      <div class="cache">
+        <p>Cache-Control: private, max-age=86400</p>
+        <img src="/cache/neko.png" />
+      </div>
+      <div class="cache">
+        <p>Cache-Control: no-store, max-age=0</p>
+        <img src="/no-store/neko.png" />
+      </div>
+      <div class="cache">
+        <p>Cache-Control: no-cache</p>
+        <img src="/no-cache/neko.png" />
+      </div>
+      <div class="cache">
+        <p>Cache-Control: must-revalidate</p>
+        <img src="/must-revalidate/neko.png" />
+      </div>
+      <div class="cache">
+        <p>Cache-Control: max-age=0</p>
+        <img src="/maxage-0/neko.png" />
+      </div>
+      <div class="cache">
+        <p>Cache-Control: null<br />Expires: 0</p>
+        <img src="/expires-0/neko.png" />
+      </div>
+    </div>
+  </body>
+</html>
