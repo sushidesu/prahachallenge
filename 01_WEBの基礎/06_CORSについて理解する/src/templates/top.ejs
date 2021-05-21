@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORS Test</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CORS Test</h1>
+    <div class="form">
+      <label>
+        <input id="is-simple" checked name="request-type" type="radio" />
+        <span>シンプルなリクエスト (method: POST, Content-Type: application/x-www-form-urlencoded)</span>
+      </label>
+      <label>
+        <input name="request-type" type="radio" />
+        <span>シンプルではないリクエスト (`X-Test: hello` ヘッダーを追加)</span>
+      </label>
+    </div>
+    <button id="request">リクエストを送信</button>
+    <p>--- 結果 ---</p>
+    <pre id="result"></pre>
+    <script>
+      const resultElement = document.getElementById("result")
+      const requestButton = document.getElementById("request")
+      const isSimpleRadioElement = document.getElementById("is-simple")
+
+      const sendRequest = async () => {
+        resultElement.innerText = "pendiing..."
+
+        const headers = {
+          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        }
+        const isSimpleRequest = isSimpleRadioElement.checked
+        if (!isSimpleRequest) {
+          headers["X-Test"] = "hello"
+        }
+
+        try {
+          const response = await fetch("<%= apiURL %>", {
+            method: "POST",
+            headers,
+            body: "hoge=foooo",
+          })
+          const result = await response.json()
+
+          resultElement.innerText = JSON.stringify(result, undefined, 2)
+        } catch (error) {
+          console.dir(error)
+          resultElement.innerText = JSON.stringify(error, undefined, 2)
+        }
+      }
+
+      requestButton.addEventListener("click", sendRequest)
+    </script>
+  </body>
+</html>
