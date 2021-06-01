@@ -4,6 +4,10 @@
 
 ドキュメント管理システムのDB設計
 
+![diagram01](assets/diagram01.svg)
+
+<details><summary>ER図コード</summary>
+
 ```plantuml
 entity User {
   + id
@@ -94,6 +98,7 @@ end note
 Document ||-o{ UserUpdateDocument
 UserUpdateDocument }o---|| User
 ```
+</details>
 
 ### 考えたこと
 
@@ -138,6 +143,10 @@ UserUpdateDocument }o---|| User
 
 実務で採用されることはあるのか？
 
+![diagra02](assets/diagram02.svg)
+
+<details><summary>ER図コード</summary>
+
 ```plantuml
 entity Document {
   + id
@@ -166,3 +175,4 @@ entity DeleteDocument {
 }
 Document ||--o{ DeleteDocument
 ```
+</details>
