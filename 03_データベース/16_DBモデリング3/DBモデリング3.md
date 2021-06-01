@@ -165,5 +165,4 @@ entity DeleteDocument {
   deletedAt: date
 }
 Document ||--o{ DeleteDocument
-
 ```
