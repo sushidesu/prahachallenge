@@ -155,6 +155,7 @@ entity Document {
 entity PostDocument {
   + id
   ---
+  documentId [fk]
   content: string
   postedAt: date
 }
@@ -163,6 +164,7 @@ Document ||--o{ PostDocument
 entity UpdateDocument {
   + id
   ---
+  documentId [fk]
   content: string
   updatedAt: date
 }
@@ -171,6 +173,7 @@ Document ||--o{ UpdateDocument
 entity DeleteDocument {
   + id
   ---
+  documentId [fk]
   deletedAt: date
 }
 Document ||--o{ DeleteDocument
