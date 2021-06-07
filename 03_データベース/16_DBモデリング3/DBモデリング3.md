@@ -47,7 +47,6 @@ note left: status は active, inactive
 
 DirectoryStatus ||-o{ Directory
 
-
 entity Document {
   + id
   ---
