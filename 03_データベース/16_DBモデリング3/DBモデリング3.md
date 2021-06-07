@@ -4,9 +4,9 @@
 
 ドキュメント管理システムのDB設計
 
-![diagram01](assets/diagram01.svg)
+<!-- ![diagram01](assets/diagram01.svg) -->
 
-<details><summary>ER図コード</summary>
+<!-- <details><summary>ER図コード</summary> -->
 
 ```plantuml
 entity User {
@@ -91,7 +91,7 @@ entity UserUpdateDocument {
 }
 note right
 ドキュメントの更新イベント
-previousUpdateIdがnullなら最新
+previousUpdateIdが自身のidと一致するなら最新
 end note
 
 Document ||-o{ UserUpdateDocument
