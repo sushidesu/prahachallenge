@@ -85,13 +85,15 @@ entity UserUpdateDocument {
   previousUpdateId [fk]
   title: string
   content: string
+  reason: string
   documentId [fk]
   updatedBy [fk]
   updatedAt: date
 }
 note right
 ドキュメントの更新イベント
-previousUpdateIdが自身のidと一致するなら最新
+- previousUpdateIdが自身のidと一致するなら最新
+- reasonには変更理由を記載できる
 end note
 
 Document ||-o{ UserUpdateDocument
