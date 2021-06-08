@@ -28,6 +28,10 @@ token=gIkuvaNzQIHg97ATvDxqgjtO
 
 ## 課題1
 
+![diagram1](assets/diagram01.svg)
+
+<details><summary>ER図コード</summary>
+
 ```plantuml
 entity Reminder {
   + id
@@ -72,6 +76,7 @@ end note
 Reminder ||--o{ RemindUser 
 MonthlyReminder ||--o{ RemindUser 
 ```
+</details>
 
 ### リマインダーを設定
 
