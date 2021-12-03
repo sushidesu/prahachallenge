@@ -220,7 +220,26 @@ resource "aws_lb" "praha" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg-alb.id]
-  subnets            = [aws_subnet.public-1a.id]
+  subnets            = [aws_subnet.public-1a.id, aws_subnet.public-1c.id]
 
   enable_deletion_protection = false
+}
+
+resource "aws_lb_target_group" "praha" {
+  name     = "${local.name}-target-group"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.praha.id
+}
+
+resource "aws_lb_target_group_attachment" "praha-1a" {
+  target_group_arn = aws_lb_target_group.praha.arn
+  target_id        = aws_instance.private-1a.id
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "praha-1c" {
+  target_group_arn = aws_lb_target_group.praha.arn
+  target_id        = aws_instance.private-1c.id
+  port             = 80
 }
