@@ -169,7 +169,7 @@ resource aws_instance private-1a {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.praha.id
-  vpc_security_group_ids = [aws_security_group.praha.id]
+  vpc_security_group_ids = [aws_security_group.sg-web.id]
 
   subnet_id = aws_subnet.private-1a.id
 
@@ -182,7 +182,7 @@ resource aws_instance private-1c {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.praha.id
-  vpc_security_group_ids = [aws_security_group.praha.id]
+  vpc_security_group_ids = [aws_security_group.sg-web.id]
 
   subnet_id = aws_subnet.private-1c.id
 
