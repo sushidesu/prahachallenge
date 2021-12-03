@@ -180,6 +180,7 @@ data aws_ssm_parameter amzn2_ami {
 resource aws_instance praha {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.praha.id
   vpc_security_group_ids = [aws_security_group.praha.id]
 
   subnet_id = aws_subnet.public-1a.id
@@ -189,51 +190,51 @@ resource aws_instance praha {
   }
 }
 
-#resource aws_instance private {
-#  ami = data.aws_ssm_parameter.amzn2_ami.value
-#  instance_type = "t2.micro"
-#  iam_instance_profile = aws_iam_instance_profile.praha.id
-#  vpc_security_group_ids = [aws_security_group.praha.id]
-#
-#  subnet_id = aws_subnet.private.id
-#
-#  tags = {
-#    Name = "${local.name}-private"
-#  }
-#}
-#
-#
+resource aws_instance private-1a {
+  ami = data.aws_ssm_parameter.amzn2_ami.value
+  instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.praha.id
+  vpc_security_group_ids = [aws_security_group.praha.id]
+
+  subnet_id = aws_subnet.private-1a.id
+
+  tags = {
+    Name = "${local.name}-private-1a"
+  }
+}
+
+
 #######################
 ## IAM Instance Profile
 #######################
-#resource aws_iam_instance_profile praha {
-#  name = local.name
-#  role = aws_iam_role.praha.name
-#}
-#
-#resource aws_iam_role praha {
-#  name = local.name
-#  path = "/"
-#
-#  assume_role_policy = <<EOF
-#{
-#    "Version": "2012-10-17",
-#    "Statement": [
-#        {
-#            "Action": "sts:AssumeRole",
-#            "Principal": {
-#               "Service": "ec2.amazonaws.com"
-#            },
-#            "Effect": "Allow",
-#            "Sid": ""
-#        }
-#    ]
-#}
-#EOF
-#}
-#
-#resource aws_iam_role_policy_attachment ssm {
-#  role = aws_iam_role.praha.id
-#  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-#}
-#
+resource aws_iam_instance_profile praha {
+  name = local.name
+  role = aws_iam_role.praha.name
+}
+
+resource aws_iam_role praha {
+  name = local.name
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
+
+resource aws_iam_role_policy_attachment ssm {
+  role = aws_iam_role.praha.id
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
