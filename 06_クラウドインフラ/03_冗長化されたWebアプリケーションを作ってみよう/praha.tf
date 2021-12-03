@@ -72,8 +72,6 @@ resource aws_subnet private-1c {
   }
 }
 
-
-
 #################
 ## Security Group
 #################
@@ -138,16 +136,6 @@ resource aws_internet_gateway praha {
 }
 
 ##############
-## NAT Gateway
-##############
-#resource aws_eip nat {}
-#
-#resource aws_nat_gateway praha {
-#  subnet_id = aws_subnet.public.id
-#  allocation_id = aws_eip.nat.id
-#}
-
-##############
 ## Route Table
 ##############
 
@@ -170,43 +158,11 @@ resource aws_route_table_association praha_public {
   route_table_id = aws_route_table.praha_public.id
 }
 
-## private
-#resource aws_route_table praha_private {
-#  vpc_id = aws_vpc.praha.id
-#  tags = {
-#    Name = local.name
-#  }
-#}
-#
-#resource aws_route nat {
-#  route_table_id = aws_route_table.praha_private.id
-#  nat_gateway_id = aws_nat_gateway.praha.id
-#  destination_cidr_block = "0.0.0.0/0"
-#}
-#
-#resource aws_route_table_association praha_private {
-#  subnet_id = aws_subnet.private.id
-#  route_table_id = aws_route_table.praha_private.id
-#}
-#
 ###############
 ## EC2 Instance
 ###############
 data aws_ssm_parameter amzn2_ami {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
-}
-
-resource aws_instance praha {
-  ami = data.aws_ssm_parameter.amzn2_ami.value
-  instance_type = "t2.micro"
-  iam_instance_profile = aws_iam_instance_profile.praha.id
-  vpc_security_group_ids = [aws_security_group.praha.id]
-
-  subnet_id = aws_subnet.public-1a.id
-
-  tags = {
-    Name = local.name
-  }
 }
 
 resource aws_instance private-1a {
@@ -221,7 +177,6 @@ resource aws_instance private-1a {
     Name = "${local.name}-private-1a"
   }
 }
-
 
 #######################
 ## IAM Instance Profile
@@ -260,7 +215,6 @@ resource aws_iam_role_policy_attachment ssm {
 #####
 ## ALB
 #####
-
 resource "aws_lb" "praha" {
   name               = local.name
   internal           = false
