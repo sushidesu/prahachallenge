@@ -95,8 +95,8 @@ resource "aws_security_group_rule" "out" {
 
 resource "aws_security_group_rule" "in_tcp" {
   type = "ingress"
-  from_port = 443
-  to_port = 443
+  from_port = 80
+  to_port = 80
   cidr_blocks = ["0.0.0.0/0"]
   protocol = "tcp"
   security_group_id = aws_security_group.praha.id
@@ -173,23 +173,22 @@ resource aws_route_table_association praha_public {
 ###############
 ## EC2 Instance
 ###############
-#data aws_ssm_parameter amzn2_ami {
-#  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
-#}
-#
-#resource aws_instance praha {
-#  ami = data.aws_ssm_parameter.amzn2_ami.value
-#  instance_type = "t2.micro"
-#  iam_instance_profile = aws_iam_instance_profile.praha.id
-#  vpc_security_group_ids = [aws_security_group.praha.id]
-#
-#  subnet_id = aws_subnet.public.id
-#
-#  tags = {
-#    Name = local.name
-#  }
-#}
-#
+data aws_ssm_parameter amzn2_ami {
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+}
+
+resource aws_instance praha {
+  ami = data.aws_ssm_parameter.amzn2_ami.value
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.praha.id]
+
+  subnet_id = aws_subnet.public-1a.id
+
+  tags = {
+    Name = local.name
+  }
+}
+
 #resource aws_instance private {
 #  ami = data.aws_ssm_parameter.amzn2_ami.value
 #  instance_type = "t2.micro"
