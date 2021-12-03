@@ -77,38 +77,57 @@ resource aws_subnet private-1c {
 #################
 ## Security Group
 #################
-#
-## public
-resource aws_security_group praha {
+
+## EC2用
+# in: ALBからのHTTPを許可
+# out: 全て許可
+resource aws_security_group sg-web {
   vpc_id      = aws_vpc.praha.id
-  name        = local.name
+  name        = "${local.name}-web"
 }
 
-resource "aws_security_group_rule" "out" {
+resource "aws_security_group_rule" "out_web" {
   type              = "egress"
   from_port         = -1
   to_port           = -1
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.praha.id
+  security_group_id = aws_security_group.sg-web.id
 }
 
-resource "aws_security_group_rule" "in_tcp" {
+resource "aws_security_group_rule" "in_from_alb" {
+  type = "ingress"
+  from_port = 80
+  to_port = 80
+  source_security_group_id = aws_security_group.sg-alb.id
+  protocol = "tcp"
+  security_group_id = aws_security_group.sg-web.id
+}
+
+## ALB用
+# in: HTTPを許可
+# out: 全て許可
+resource aws_security_group sg-alb {
+  vpc_id = aws_vpc.praha.id
+  name   = "${local.name}-alb"
+}
+
+resource "aws_security_group_rule" "out_alb" {
+  type              = "egress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.sg-alb.id
+}
+
+resource "aws_security_group_rule" "in_http" {
   type = "ingress"
   from_port = 80
   to_port = 80
   cidr_blocks = ["0.0.0.0/0"]
   protocol = "tcp"
-  security_group_id = aws_security_group.praha.id
-}
-
-resource "aws_security_group_rule" "in_icmp" {
-  type = "ingress"
-  from_port = -1
-  to_port = -1
-  cidr_blocks = ["0.0.0.0/0"]
-  protocol = "icmp"
-  security_group_id = aws_security_group.praha.id
+  security_group_id = aws_security_group.sg-alb.id
 }
 
 ###################
@@ -238,3 +257,16 @@ resource aws_iam_role_policy_attachment ssm {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
+#####
+## ALB
+#####
+
+resource "aws_lb" "praha" {
+  name               = local.name
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.sg-alb.id]
+  subnets            = [aws_subnet.public-1a.id]
+
+  enable_deletion_protection = false
+}
