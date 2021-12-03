@@ -178,6 +178,19 @@ resource aws_instance private-1a {
   }
 }
 
+resource aws_instance private-1c {
+  ami = data.aws_ssm_parameter.amzn2_ami.value
+  instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.praha.id
+  vpc_security_group_ids = [aws_security_group.praha.id]
+
+  subnet_id = aws_subnet.private-1c.id
+
+  tags = {
+    Name = "${local.name}-private-1c"
+  }
+}
+
 #######################
 ## IAM Instance Profile
 #######################
