@@ -102,12 +102,21 @@ resource "aws_security_group_rule" "in_tcp" {
   security_group_id = aws_security_group.praha.id
 }
 
+resource "aws_security_group_rule" "in_icmp" {
+  type = "ingress"
+  from_port = -1
+  to_port = -1
+  cidr_blocks = ["0.0.0.0/0"]
+  protocol = "icmp"
+  security_group_id = aws_security_group.praha.id
+}
+
 ###################
 ## Internet Gateway
 ###################
-#resource aws_internet_gateway praha {
-#  vpc_id = aws_vpc.praha.id
-#}
+resource aws_internet_gateway praha {
+  vpc_id = aws_vpc.praha.id
+}
 
 ##############
 ## NAT Gateway
@@ -124,24 +133,24 @@ resource "aws_security_group_rule" "in_tcp" {
 ##############
 
 ## public
-#resource aws_route_table praha_public {
-#  vpc_id = aws_vpc.praha.id
-#  tags = {
-#    Name = local.name
-#  }
-#}
-#
-#resource aws_route igw {
-#  route_table_id = aws_route_table.praha_public.id
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id = aws_internet_gateway.praha.id
-#}
-#
-#resource aws_route_table_association praha_public {
-#  subnet_id = aws_subnet.public.id
-#  route_table_id = aws_route_table.praha_public.id
-#}
-#
+resource aws_route_table praha_public {
+  vpc_id = aws_vpc.praha.id
+  tags = {
+    Name = local.name
+  }
+}
+
+resource aws_route igw {
+  route_table_id = aws_route_table.praha_public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.praha.id
+}
+
+resource aws_route_table_association praha_public {
+  subnet_id = aws_subnet.public-1a.id
+  route_table_id = aws_route_table.praha_public.id
+}
+
 ## private
 #resource aws_route_table praha_private {
 #  vpc_id = aws_vpc.praha.id
