@@ -299,6 +299,7 @@ resource "aws_lb" "praha" {
   enable_deletion_protection = false
 }
 
+# target group
 resource "aws_lb_target_group" "praha" {
   name     = "${local.name}-target-group"
   port     = 80
@@ -316,4 +317,15 @@ resource "aws_lb_target_group_attachment" "praha-1c" {
   target_group_arn = aws_lb_target_group.praha.arn
   target_id        = aws_instance.private-1c.id
   port             = 80
+}
+
+# listener
+resource "aws_lb_listener" "praha" {
+  load_balancer_arn = aws_lb.praha.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.praha.arn
+  }
 }
