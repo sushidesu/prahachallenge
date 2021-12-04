@@ -169,30 +169,41 @@ resource aws_route_table_association praha_public {
   route_table_id = aws_route_table.praha_public.id
 }
 
-# private
-resource aws_route_table praha_private {
+# private 1a
+resource aws_route_table praha_private_1a {
   vpc_id = aws_vpc.praha.id
   tags = {
-    Name = "${local.name}-private"
+    Name = "${local.name}-private-1a"
   }
 }
-
-resource aws_route nat {
-  route_table_id = aws_route_table.praha_private.id
+resource aws_route nat_1a {
+  route_table_id = aws_route_table.praha_private_1a.id
   nat_gateway_id = aws_nat_gateway.praha.id
   destination_cidr_block = "0.0.0.0/0"
 }
 
-resource aws_route_table_association praha_private-1a {
+resource aws_route_table_association praha_private_1a {
   subnet_id = aws_subnet.private-1a.id
-  route_table_id = aws_route_table.praha_private.id
+  route_table_id = aws_route_table.praha_private_1a.id
 }
 
-#resource aws_route_table_association praha_private-1c {
-#  subnet_id = aws_subnet.private-1c.id
-#  route_table_id = aws_route_table.praha_private.id
-#}
+# private 1c
+resource aws_route_table praha_private_1c {
+  vpc_id = aws_vpc.praha.id
+  tags = {
+    Name = "${local.name}-private-1c"
+  }
+}
+resource aws_route nat_1c {
+  route_table_id = aws_route_table.praha_private_1c.id
+  nat_gateway_id = aws_nat_gateway.praha.id
+  destination_cidr_block = "0.0.0.0/0"
+}
 
+resource aws_route_table_association praha_private_1c {
+  subnet_id = aws_subnet.private-1c.id
+  route_table_id = aws_route_table.praha_private_1c.id
+}
 
 ###############
 ## EC2 Instance
