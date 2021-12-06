@@ -169,6 +169,27 @@ resource aws_route_table_association praha_public {
   route_table_id = aws_route_table.praha_public.id
 }
 
+# public 1c
+resource aws_route_table praha_public_1c {
+  vpc_id = aws_vpc.praha.id
+
+  tags = {
+    Name = "${local.name}-1c"
+  }
+}
+
+resource aws_route igw_1c {
+  route_table_id = aws_route_table.praha_public_1c.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.praha.id
+}
+
+resource aws_route_table_association praha_public_1c {
+  subnet_id = aws_subnet.public-1c.id
+  route_table_id = aws_route_table.praha_public_1c.id
+}
+
+
 # private 1a
 resource aws_route_table praha_private_1a {
   vpc_id = aws_vpc.praha.id
