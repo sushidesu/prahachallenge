@@ -1,27 +1,21 @@
-provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region = "${var.region}"
-}
-
 locals {
-  name = "lifecycle-transition"
+  name_transition = "lifecycle-transition"
 }
 
 resource aws_s3_bucket lifecycle-transition {
-  bucket = "${local.name}"
+  bucket = "${local.name_transition}"
   acl    = "private"
 
   tags = {
-    Name = "${local.name}"
+    Name = "${local.name_transition}"
   }
 
   lifecycle_rule {
-    id      = "rule-${local.name}"
+    id      = "rule-${local.name_transition}"
     enabled = true
 
     tags = {
-      Name = "rule-${local.name}"
+      Name = "rule-${local.name_transition}"
     }
 
     transition {
