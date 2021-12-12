@@ -1,40 +1,7 @@
-provider "aws" {
-  alias  = "central"
-  region = "eu-central-1"
-}
-
 locals {
   name_replication = "replication"
 }
 
-# bucketを作成
-resource "aws_s3_bucket" "destination" {
-  bucket = "${local.name_replication}-destination"
-  acl = "private"
-
-  tags = {
-    Name = "${local.name_replication}-destination"
-  }
-
-  versioning {
-    enabled = true
-  }
-}
-
-resource "aws_s3_bucket" "source" {
-  bucket = "${local.name_replication}-source"
-  acl = "private"
-
-  tags = {
-    Name = "${local.name_replication}-source"
-  }
-
-  versioning {
-    enabled = true
-  }
-}
-
-# role
 resource "aws_iam_role" "replication" {
   name = "${local.name_replication}"
 
@@ -55,9 +22,8 @@ resource "aws_iam_role" "replication" {
 POLICY
 }
 
-# policy
 resource "aws_iam_policy" "replication" {
-  name = "replication-policy"
+  name = "${local.name_replication}"
 
   policy = <<POLICY
 {
@@ -81,7 +47,7 @@ resource "aws_iam_policy" "replication" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${aws_s3_bucket.source.arn}"
+        "${aws_s3_bucket.source.arn}/*"
       ]
     },
     {
@@ -91,31 +57,52 @@ resource "aws_iam_policy" "replication" {
         "s3:ReplicateTags"
       ],
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.destination.arn}"
+      "Resource": "${aws_s3_bucket.destination.arn}/*"
     }
   ]
 }
 POLICY
 }
 
-# attach
 resource "aws_iam_role_policy_attachment" "replication" {
-  role       = aws_iam_role.replication.id
+  role       = aws_iam_role.replication.name
   policy_arn = aws_iam_policy.replication.arn
 }
 
-# レプリケーションを設定
+resource "aws_s3_bucket" "destination" {
+  acl = "private"
+
+  versioning {
+    enabled = true
+  }
+}
+
+resource "aws_s3_bucket" "source" {
+  provider = aws.central
+  acl      = "private"
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle {
+    ignore_changes = [
+      replication_configuration
+    ]
+  }
+}
+
 resource "aws_s3_bucket_replication_configuration" "replication" {
-  role = aws_iam_role.replication.arn
+  role   = aws_iam_role.replication.arn
   bucket = aws_s3_bucket.source.id
 
   rule {
-    id = "${local.name_replication}-rule"
+    id     = "${local.name_replication}-rule"
     status = "Enabled"
 
     destination {
-      bucket = aws_s3_bucket.destination.arn
-      storage_class = "GLACIER"
+      bucket        = aws_s3_bucket.destination.arn
+      storage_class = "STANDARD"
     }
   }
 }
