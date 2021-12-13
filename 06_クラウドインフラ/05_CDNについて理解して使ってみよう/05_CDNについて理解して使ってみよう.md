@@ -2,6 +2,21 @@
 
 ## 課題1
 
+### CDNとは？
+
+CDNとは、Contents Delivery Networkの略で、コンテンツを効率よく配信するためのネットワークのことを指す。
+
+> コンテンツ配信ネットワーク（CDN）とは、インターネットコンテンツを高速配信するために連携する地理的に分散されたサーバーのグループを指します。
+>
+> [What is a CDN? | How do CDNs work? | Cloudflare](https://www.cloudflare.com/ja-jp/learning/cdn/what-is-a-cdn/)
+
+WEBホスティングとの違い
+
+参考
+
+- [What is a CDN? | How do CDNs work? | Cloudflare](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)
+- [【図解】CDNとは？仕組みと技術の基礎知識 - カゴヤのサーバー研究室](https://www.kagoya.jp/howto/it-glossary/web/cdn/)
+
 ### 1
 
 なぜCDNを使うとパフォーマンス改善になるのか？
