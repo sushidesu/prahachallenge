@@ -3,7 +3,7 @@ locals {
 }
 
 resource aws_s3_bucket lifecycle-expiration {
-  bucket = "${local.name_expiration}"
+  bucket = local.name_expiration
   acl    = "private"
 
   tags = {
