@@ -94,7 +94,10 @@ Webホスティングと違い
 
 ### 1
 
-- 遠いリージョンにS3に画像保存
+- 遠いリージョンのS3に画像保存
+  - `us-east-2` にバケットを作成
+  - neko.pngを保存
+  - https://praha-task-cdn-ohaio.s3.us-east-2.amazonaws.com/neko.png
 - CloudFrontとS3を接続
 
 リクエスト/レスポンス素行度を比較
