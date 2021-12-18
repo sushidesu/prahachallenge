@@ -92,15 +92,86 @@ Webホスティングと違い
 
 ## 課題2
 
-### 1
+### 準備
 
 - 遠いリージョンのS3に画像保存
   - `us-east-2` にバケットを作成
-  - neko.pngを保存
-  - https://praha-task-cdn-ohaio.s3.us-east-2.amazonaws.com/neko.png
+    - 匿名ユーザーに対してgetObjectを許可するポリシーを付与
+    - ACLはprivateとした
+  - 画像を保存
+    - 100kbほどの画像ファイル (neko.png)
+    - https://praha-task-cdn-ohaio.s3.us-east-2.amazonaws.com/neko.png
 - CloudFrontとS3を接続
 
-リクエスト/レスポンス素行度を比較
+### リクエスト/レスポンス速度を比較
+
+#### S3 (us-east-2)
+
+応答時間: 300ms ~ 1500msくらい。300msのときと1秒以上かかるときがある。この原因については (#補足 (応答速度のばらつきについて)) に書きました。
+
+#### CloudFront
+
+応答速度: XXXms ~ XXXmsくらい
+
+
+#### 結果
+
+CloudFrontの方が00倍早い。
+
+| S3 (us-east-2) | CloudFront |
+| --- | --- |
+| 00ms | 00ms |
+
+## 補足 (Terraformのリージョンエラーについて)
+
+今回もリージョンがらみのエラーが出た。
+
+```sh
+│ Error: Error putting S3 policy: BucketRegionError: incorrect region, the bucket is not in 'ap-northeast-1' region at endpoint ''
+│       status code: 301, request id: , host id: 
+│ 
+│   with aws_s3_bucket_policy.allow_access_from_all_users,
+│   on s3-with-cdn.tf line 24, in resource "aws_s3_bucket_policy" "allow_access_from_all_users":
+│   24: resource "aws_s3_bucket_policy" "allow_access_from_all_users" {
+│ 
+```
+
+しかしよく読むと `aws_s3_bucket_policy` のリージョンが `bucket` と違いますよということが書いてある。確かにbucketにのみ `provider = aws.ohaio` を設定しており、policyには設定していなかったのだが、bucketとpolicyは同じリージョンに作成する必要があるということみたい。
+
+`aws_s3_bucket_policy` にも `provider = aws.ohaio` を追加するとエラーは解消された。[前の課題](../04_S3を理解する/04_S3を理解する.md)のエラーもおそらく同じ原因だと思われます。
+
+## 補足 (応答速度のばらつきについて)
+
+S3、CloudFrontともに応答速度が早いときと遅いときのばらつきがある。これは Chromeによる コネクションプールの再利用が関係している。
+
+### 状況
+
+遅い時の「Timing」
+
+![slow01](./images/cdn-slow-01.png)
+
+早い時の「Timing」
+
+![slow02](./images/cdn-slow-02.png)
+
+遅いときはInitial connection+SSLに時間がかかっており、早い時はスキップされている。前回のリクエストから30秒ほど開けてリクエストを送ると、再度Initial connectionが始まる。
+
+### 原因
+
+Chromeにはコネクションをプールしておき、再利用できるようにする最適化がある。この機能によりコネクションの確立がスキップされ、応答速度が早くなっていた。
+
+> First, Chrome checks its socket pools to see if there is an available socket for the hostname, which it may be able to reuse - keep-alive sockets are kept in the pool for some period of time, to avoid the TCP handshake and slow-start penalties. If no socket is available, then it can initiate the TCP handshake, and place it in the pool. Then, when the user initiates the navigation, the HTTP request can be dispatched immediately.
+>
+> [High Performance Networking in Google Chrome - igvita.com](https://www.igvita.com/posa/high-performance-networking-in-google-chrome/#tcp-pre-connect)
+
+ちなみに`chrome://net-internals#sockets` からプールしているコネクションを強制的に閉じることができる。`Close Idle sockets` ボタンを押してコネクションを閉じた後にリクエストを送ると、確かに毎回SSLコネクションの確立が行われた。
+
+![close](./images/close-idle-sockets.png)
+
+### 参考
+
+- [windows - Force Chrome to close/re-open all TCP/TLS connections when profiling with the Network Panel - Stack Overflow](https://stackoverflow.com/questions/37170812/force-chrome-to-close-re-open-all-tcp-tls-connections-when-profiling-with-the-ne)
+- [High Performance Networking in Google Chrome - igvita.com](https://www.igvita.com/posa/high-performance-networking-in-google-chrome/#tcp-pre-connect)
 
 ## その他
 
