@@ -99,27 +99,49 @@ Webホスティングと違い
     - 匿名ユーザーに対してgetObjectを許可するポリシーを付与
     - ACLはprivateとした
   - 画像を保存
-    - 100kbほどの画像ファイル (neko.png)
+    - 30kbほどの画像ファイル (neko.png)
     - https://praha-task-cdn-ohaio.s3.us-east-2.amazonaws.com/neko.png
 - CloudFrontとS3を接続
+  - 画像を表示できるように設定
+  - https://dw97j3hinq97w.cloudfront.net/neko.png
 
 ### リクエスト/レスポンス速度を比較
 
 #### S3 (us-east-2)
 
-応答時間: 300ms ~ 1500msくらい。300msのときと1秒以上かかるときがある。この原因については (#補足 (応答速度のばらつきについて)) に書きました。
+応答時間: 300ms ~ 1500msくらい。①300msのときと②1秒以上かかるときがある。この原因については (#補足 (応答速度のばらつきについて)) に書きました。
+
+- ①
+  - ![1](./images/cdn-slow-02.png)
+- ②
+  - ![2](./images/cdn-slow-01.png)
 
 #### CloudFront
 
-応答速度: 250ms ~ 1000msくらい
+応答速度: 250ms ~ 1000msくらい。
+
+こちらは、①200ms程度のとき、②650ms程度のとき、③1000ms程度のときがあった。③についてはコネクションの再利用が関係していると思われるが、①と②についてはわからなかった。リロードを連打すると、①と②がほとんど交互に来る。どのエッジサーバーに接続するかによって変わっている？
+
+- ①
+  - ![01](./images/cdn-fast-03.png)
+- ②
+  - ![02](./images/cdn-fast-02.png)
+- ③
+  - ![03](./images/cdn-fast-01.png)
 
 #### 結果
 
-CloudFrontの方が00倍早い。
+CDNを使用したほうが、コネクションの確立にかかる時間が大幅に短縮された。しかし全体の時間で見ると、あまり変わらなかった。検証に使用した画像のファイルサイズが30kbと小さすぎた？
 
-| S3 (us-east-2) | CloudFront |
-| --- | --- |
-| 00ms | 00ms |
+| 時間 | S3 (us-east-2) | CloudFront |
+| --- | --- | --- |
+| 全体 | 300ms ~ 1500ms | 250ms ~ 1000ms |
+| コネクションの確立 | 1000ms | 250ms |
+| TTFB | 300ms | 250ms ~ 650ms |
+
+TTFB: Time to first byte の略。HTTPリクエストを送信してから、レスポンスの最初の1バイトを受信するまでの時間のことを指す。
+
+参考: [Time to first byte - Wikipedia](https://en.wikipedia.org/wiki/Time_to_first_byte)
 
 ## 補足 (Terraformのリージョンエラーについて)
 
