@@ -94,6 +94,7 @@ Webホスティングと違い
 
 ### 準備
 
+- Terraformで構築しました: [s3-with-cdn.tf](./s3-with-cdn.tf)
 - 遠いリージョンのS3に画像保存
   - `us-east-2` にバケットを作成
     - 匿名ユーザーに対してgetObjectを許可するポリシーを付与
