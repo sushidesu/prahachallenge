@@ -1,8 +1,8 @@
 ---
 name: 'task'
 root: '.'
-output: '**/*'
-ignore: ['*/**', '.', '.git/**', 'node_modules', '.scaffdog']
+output: '*'
+ignore: ['.', '.git/**', 'node_modules', '.scaffdog']
 questions:
   index: 'Please enter index.'
   title: 'Please enter a task title.'
