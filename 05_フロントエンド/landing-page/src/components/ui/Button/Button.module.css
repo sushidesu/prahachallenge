@@ -1,0 +1,12 @@
+.wrapper {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #fda;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 4px 2px 10px rgb(255 205 176 / 60%);
+}
+
+.wrapper:active {
+  background-color: #dad;
+}
