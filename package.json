@@ -6,11 +6,17 @@
   "author": "sushidesu <hugemerge@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "gen": "scaffdog generate"
+    "gen": "scaffdog generate",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^7.0.4",
     "lint-staged": "^12.1.3",
     "scaffdog": "^1.0.1"
+  },
+  "lint-staged": {
+    "05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx}": "yarn --cwd 05_フロントエンド/landing-page eslint --cache --fix",
+    "05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx,json,css}": "yarn --cwd 05_フロントエンド/landing-page prettier --write",
+    "05_フロントエンド/landing-page/**/*.css": "yarn --cwd 05_フロントエンド/landing-page stylelint --fix"
   }
 }
