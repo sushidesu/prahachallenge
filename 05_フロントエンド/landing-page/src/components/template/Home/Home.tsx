@@ -1,6 +1,7 @@
 import styles from "./Home.module.css"
 
 import { Card } from "@/components/atom/Card"
+import { SectionTitle } from "@/components/atom/SectionTitle"
 import {
   AuthorDetails,
   AuthorDetailsProps,
@@ -51,21 +52,21 @@ export const Home = (): JSX.Element => {
         ))}
       </div>
       <div className={styles["side"]}>
-        <SideItem header={<p>Author</p>}>
+        <SideItem header={<SectionTitle>Authors</SectionTitle>}>
           <Card>
             {authors.map((author, i) => (
               <AuthorDetails key={i} {...author} />
             ))}
           </Card>
         </SideItem>
-        <SideItem header={<p>Categories</p>}>
+        <SideItem header={<SectionTitle>Categories</SectionTitle>}>
           <Card>
             <ul>
               <li>AWS</li>
             </ul>
           </Card>
         </SideItem>
-        <SideItem header={<p>Recent Post</p>}>
+        <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
           <Card>Build Your New Idea with Laravel Freamwork.</Card>
         </SideItem>
       </div>
