@@ -1,10 +1,20 @@
 :root {
+  /* color */
   --color-base: rgb(75 85 99);
   --color-base-bg: rgb(243 244 246);
+  --color-white: rgb(255 255 255);
   --color-text-strong: rgb(31 41 55);
   --color-text-secondary: rgb(75 85 99);
   --color-link: rgb(59 130 246);
   --color-primary: rgb(75 85 99);
   --color-primary-text: rgb(243 244 246);
+
+  /* z-index */
   --index-header: 100;
+
+  /* border-radius */
+  --radius-md: 8px;
+
+  /* shadow */
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
 }
