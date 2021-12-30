@@ -1,5 +1,3 @@
 .text:hover {
-  --color-link: blue;
-
   color: var(--color-link);
 }

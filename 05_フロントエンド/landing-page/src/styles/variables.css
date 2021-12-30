@@ -1,0 +1,10 @@
+:root {
+  --color-base: rgb(75 85 99);
+  --color-base-bg: rgb(243 244 246);
+  --color-text-strong: rgb(31 41 55);
+  --color-text-secondary: rgb(75 85 99);
+  --color-link: rgb(59 130 246);
+  --color-primary: rgb(75 85 99);
+  --color-primary-text: rgb(243 244 246);
+  --index-header: 100;
+}
