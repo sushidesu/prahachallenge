@@ -58,6 +58,16 @@ export const Home = (): JSX.Element => {
             ))}
           </Card>
         </SideItem>
+        <SideItem header={<p>Categories</p>}>
+          <Card>
+            <ul>
+              <li>AWS</li>
+            </ul>
+          </Card>
+        </SideItem>
+        <SideItem header={<p>Recent Post</p>}>
+          <Card>Build Your New Idea with Laravel Freamwork.</Card>
+        </SideItem>
       </div>
     </div>
   )
