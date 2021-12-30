@@ -2,6 +2,7 @@ import styles from "./Header.module.css"
 
 import { Logo } from "@/components/atom/Logo"
 import { TextHoverable } from "@/components/atom/TextHoverable"
+import { LinksHorizontal } from "@/components/molecule/LinksHorizontal"
 
 export const Header = (): JSX.Element => {
   // TODO: brand, linksを受け取る
@@ -26,11 +27,9 @@ export const Header = (): JSX.Element => {
         <Logo>{brand}</Logo>
       </div>
       <div className={styles["links"]}>
-        <ul>{links.map(link => (
-          <li key={link.href}>
-            <TextHoverable>{link.label}</TextHoverable>
-          </li>
-        ))}</ul>
+        <LinksHorizontal>{links.map((link) => (
+          <TextHoverable>{link.label}</TextHoverable>
+        ))}</LinksHorizontal>
       </div>
     </div>
   )
