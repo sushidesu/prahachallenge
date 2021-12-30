@@ -22,10 +22,10 @@ export const Header = (): JSX.Element => {
   ]
   return (
     <div className={styles["wrapper"]}>
-      <div>
+      <div className={styles["brand"]}>
         <Logo>{brand}</Logo>
       </div>
-      <div>
+      <div className={styles["links"]}>
         <ul>{links.map(link => (
           <li key={link.href}>
             <TextHoverable>{link.label}</TextHoverable>
