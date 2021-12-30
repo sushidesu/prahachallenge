@@ -1,0 +1,7 @@
+.md .item + .item {
+  margin-top: 1rem;
+}
+
+.sm .item + .item {
+  margin-top: 0.5rem;
+}

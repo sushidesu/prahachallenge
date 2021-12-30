@@ -1,6 +1,7 @@
 import styles from "./Home.module.css"
 
 import { Card } from "@/components/atom/Card"
+import { List } from "@/components/atom/List"
 import { SectionTitle } from "@/components/atom/SectionTitle"
 import {
   AuthorDetails,
@@ -27,6 +28,16 @@ const _genAuthor = (name: string): AuthorDetailsProps => ({
   numberOfPosts: 20,
 })
 
+const _genCategory = (name: string): _Category => ({
+  name,
+  link: "/#",
+})
+
+type _Category = {
+  name: string
+  link: string
+}
+
 export const Home = (): JSX.Element => {
   const posts: CardPostProps[] = [
     _genPost("Build Your New Idea with Laravel Freamwork."),
@@ -44,6 +55,16 @@ export const Home = (): JSX.Element => {
     _genAuthor("Khatab WedaaCreated"),
   ]
 
+  const categories: _Category[] = [
+    _genCategory("PHP"),
+    _genCategory("AWS"),
+    _genCategory("Laravel"),
+    _genCategory("Vue"),
+    _genCategory("Design"),
+    _genCategory("Django"),
+    _genCategory("PHP"),
+  ]
+
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
@@ -54,16 +75,20 @@ export const Home = (): JSX.Element => {
       <div className={styles["side"]}>
         <SideItem header={<SectionTitle>Authors</SectionTitle>}>
           <Card>
-            {authors.map((author, i) => (
-              <AuthorDetails key={i} {...author} />
-            ))}
+            <List>
+              {authors.map((author, i) => (
+                <AuthorDetails key={i} {...author} />
+              ))}
+            </List>
           </Card>
         </SideItem>
         <SideItem header={<SectionTitle>Categories</SectionTitle>}>
           <Card>
-            <ul>
-              <li>AWS</li>
-            </ul>
+            <List>
+              {categories.map((category, i) => (
+                <p key={i}>{category.name}</p>
+              ))}
+            </List>
           </Card>
         </SideItem>
         <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
