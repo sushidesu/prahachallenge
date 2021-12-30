@@ -1,7 +1,11 @@
+.lg .item + .item {
+  margin-top: var(--space-y-lg);
+}
+
 .md .item + .item {
-  margin-top: 1rem;
+  margin-top: var(--space-y-md);
 }
 
 .sm .item + .item {
-  margin-top: 0.5rem;
+  margin-top: var(--space-y-sm);
 }

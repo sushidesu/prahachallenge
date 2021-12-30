@@ -17,4 +17,9 @@
 
   /* shadow */
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
+
+  /* space */
+  --space-y-sm: 0.5rem;
+  --space-y-md: 1.2rem;
+  --space-y-lg: 1.5rem;
 }
