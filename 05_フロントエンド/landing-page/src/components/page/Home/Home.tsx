@@ -1,10 +1,5 @@
-import { Button } from "@/components/ui/Button"
+import HomeTemplate from "@/components/template/Home"
 
 export const Home = (): JSX.Element => {
-  return (
-    <div>
-      <p>hello</p>
-      <Button>OK</Button>
-    </div>
-  )
+  return <HomeTemplate />
 }
