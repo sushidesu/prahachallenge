@@ -1,5 +1,6 @@
 import styles from "./Home.module.css"
 
+import { Box } from "@/components/atom/Box"
 import { Card } from "@/components/atom/Card"
 import { List } from "@/components/atom/List"
 import { SectionTitle } from "@/components/atom/SectionTitle"
@@ -68,36 +69,40 @@ export const Home = (): JSX.Element => {
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
-        <List size="md">
-          {posts.map((post, i) => (
-            <CardPost key={i} {...post} />
-          ))}
-        </List>
+        <Box spaceX="lg">
+          <List size="md">
+            {posts.map((post, i) => (
+              <CardPost key={i} {...post} />
+            ))}
+          </List>
+        </Box>
       </div>
       <div className={styles["side"]}>
-        <List size="lg">
-          <SideItem header={<SectionTitle>Authors</SectionTitle>}>
-            <Card>
-              <List size="sm">
-                {authors.map((author, i) => (
-                  <AuthorDetails key={i} {...author} />
-                ))}
-              </List>
-            </Card>
-          </SideItem>
-          <SideItem header={<SectionTitle>Categories</SectionTitle>}>
-            <Card>
-              <List size="sm">
-                {categories.map((category, i) => (
-                  <p key={i}>{category.name}</p>
-                ))}
-              </List>
-            </Card>
-          </SideItem>
-          <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
-            <Card>Build Your New Idea with Laravel Freamwork.</Card>
-          </SideItem>
-        </List>
+        <Box spaceX="lg">
+          <List size="lg">
+            <SideItem header={<SectionTitle>Authors</SectionTitle>}>
+              <Card>
+                <List size="sm">
+                  {authors.map((author, i) => (
+                    <AuthorDetails key={i} {...author} />
+                  ))}
+                </List>
+              </Card>
+            </SideItem>
+            <SideItem header={<SectionTitle>Categories</SectionTitle>}>
+              <Card>
+                <List size="sm">
+                  {categories.map((category, i) => (
+                    <p key={i}>{category.name}</p>
+                  ))}
+                </List>
+              </Card>
+            </SideItem>
+            <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
+              <Card>Build Your New Idea with Laravel Freamwork.</Card>
+            </SideItem>
+          </List>
+        </Box>
       </div>
     </div>
   )

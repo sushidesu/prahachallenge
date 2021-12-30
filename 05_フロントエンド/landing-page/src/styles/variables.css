@@ -18,8 +18,13 @@
   /* shadow */
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
 
-  /* space */
+  /* space y */
   --space-y-sm: 0.5rem;
   --space-y-md: 1.2rem;
   --space-y-lg: 2rem;
+
+  /* space x */
+  --space-x-sm: 0.4rem;
+  --space-x-md: 1rem;
+  --space-x-lg: 2rem;
 }
