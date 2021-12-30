@@ -1,9 +1,11 @@
 import styles from "./Home.module.css"
 
+import { Card } from "@/components/atom/Card"
 import {
   AuthorDetails,
   AuthorDetailsProps,
 } from "@/components/molecule/AuthorDetails"
+import { SideItem } from "@/components/molecule/SideItem"
 import { CardPost, CardPostProps } from "@/components/organism/CardPost"
 
 const _genPost = (title: string): CardPostProps => ({
@@ -49,12 +51,13 @@ export const Home = (): JSX.Element => {
         ))}
       </div>
       <div className={styles["side"]}>
-        <div>
-          {authors.map((author, i) => (
-            <AuthorDetails key={i} {...author} />
-          ))}
-        </div>
-        <div></div>
+        <SideItem header={<p>Author</p>}>
+          <Card>
+            {authors.map((author, i) => (
+              <AuthorDetails key={i} {...author} />
+            ))}
+          </Card>
+        </SideItem>
       </div>
     </div>
   )
