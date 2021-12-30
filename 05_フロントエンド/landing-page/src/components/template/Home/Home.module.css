@@ -6,8 +6,10 @@
 
 .main {
   width: 60%;
+  margin-top: var(--space-y-lg);
 }
 
 .side {
   width: 40%;
+  margin-top: var(--space-y-lg);
 }
