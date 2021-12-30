@@ -1,5 +1,9 @@
 import styles from "./Home.module.css"
 
+import {
+  AuthorDetails,
+  AuthorDetailsProps,
+} from "@/components/molecule/AuthorDetails"
 import { CardPost, CardPostProps } from "@/components/organism/CardPost"
 
 const _genPost = (title: string): CardPostProps => ({
@@ -14,6 +18,12 @@ const _genPost = (title: string): CardPostProps => ({
   },
 })
 
+const _genAuthor = (name: string): AuthorDetailsProps => ({
+  name,
+  image: "/dummy",
+  numberOfPosts: 20,
+})
+
 export const Home = (): JSX.Element => {
   const posts: CardPostProps[] = [
     _genPost("Build Your New Idea with Laravel Freamwork."),
@@ -23,6 +33,14 @@ export const Home = (): JSX.Element => {
     _genPost("TDD First"),
   ]
 
+  const authors: AuthorDetailsProps[] = [
+    _genAuthor("Alex JohnCreated"),
+    _genAuthor("Jane DoeCreated"),
+    _genAuthor("Lisa WayCreated"),
+    _genAuthor("Steve MattCreated"),
+    _genAuthor("Khatab WedaaCreated"),
+  ]
+
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
@@ -30,7 +48,14 @@ export const Home = (): JSX.Element => {
           <CardPost key={i} {...post} />
         ))}
       </div>
-      <div className={styles["side"]}>side</div>
+      <div className={styles["side"]}>
+        <div>
+          {authors.map((author, i) => (
+            <AuthorDetails key={i} {...author} />
+          ))}
+        </div>
+        <div></div>
+      </div>
     </div>
   )
 }
