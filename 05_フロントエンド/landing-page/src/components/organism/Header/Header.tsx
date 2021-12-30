@@ -10,16 +10,16 @@ export const Header = (): JSX.Element => {
   const links = [
     {
       label: "Home",
-      href: "/"
+      href: "/",
     },
     {
       label: "Blog",
-      href: "/blog"
+      href: "/blog",
     },
     {
       label: "About us",
-      href: "/about"
-    }
+      href: "/about",
+    },
   ]
   return (
     <div className={styles["wrapper"]}>
@@ -27,9 +27,11 @@ export const Header = (): JSX.Element => {
         <Logo>{brand}</Logo>
       </div>
       <div className={styles["links"]}>
-        <LinksHorizontal>{links.map((link) => (
-          <TextHoverable>{link.label}</TextHoverable>
-        ))}</LinksHorizontal>
+        <LinksHorizontal>
+          {links.map((link) => (
+            <TextHoverable key={link.href}>{link.label}</TextHoverable>
+          ))}
+        </LinksHorizontal>
       </div>
     </div>
   )

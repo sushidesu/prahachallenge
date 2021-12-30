@@ -6,7 +6,5 @@ type TextHoverableProps = {
 
 export const TextHoverable = (props: TextHoverableProps): JSX.Element => {
   const { children } = props
-  return (
-    <p className={styles["text"]}>{ children }</p>
-  )
+  return <p className={styles["text"]}>{children}</p>
 }
