@@ -1,6 +1,5 @@
 .wrapper {
-  padding: 1rem;
-  background-color: var(--color-white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
