@@ -30,9 +30,10 @@ a {
   box-sizing: border-box;
 }
 
-ul[class],
-ol[class] {
+ul,
+ol {
   padding: 0;
+  list-style-type: none;
 }
 
 body,
@@ -41,8 +42,8 @@ h2,
 h3,
 h4,
 p,
-ul[class],
-ol[class],
+ul,
+ol,
 li,
 figure,
 figcaption,
