@@ -5,6 +5,7 @@
     "stylelint-config-prettier"
   ],
   "rules": {
-    "order/order": ["custom-properties", "declarations"]
+    "order/order": ["custom-properties", "declarations"],
+    "selector-id-pattern": null
   }
 }
