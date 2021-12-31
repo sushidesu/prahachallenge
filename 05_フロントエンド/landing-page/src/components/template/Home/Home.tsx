@@ -1,7 +1,6 @@
 import styles from "./Home.module.css"
 
 import { Box } from "@/components/atom/Box"
-import { Button } from "@/components/atom/Button"
 import { Card } from "@/components/atom/Card"
 import { List } from "@/components/atom/List"
 import { Section } from "@/components/atom/Section"
@@ -16,6 +15,7 @@ import {
   CardPostSmall,
   CardPostSmallProps,
 } from "@/components/organism/CardPostSmall"
+import { Pagenation } from "@/components/organism/Pagenation"
 
 const _img = (image?: string): string | undefined =>
   image ? `/image/${image}` : undefined
@@ -105,12 +105,7 @@ export const Home = (): JSX.Element => {
                 <Select options={options} />
               </div>
             }
-            footer={
-              <div>
-                <Button>previous</Button>
-                <Button>next</Button>
-              </div>
-            }
+            footer={<Pagenation links={["/#", "/#", "/#"]} />}
           >
             <List size="md">
               {posts.map((post, i) => (
