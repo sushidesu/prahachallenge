@@ -10,11 +10,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
   if (image === undefined) {
     return <Dummy />
   } else {
-    return (
-      <div className={styles["wrapper"]}>
-        <img src={image} alt={name} />
-      </div>
-    )
+    return <img className={styles["image"]} src={image} alt={name} />
   }
 }
 

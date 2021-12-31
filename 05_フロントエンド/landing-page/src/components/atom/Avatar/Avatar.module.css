@@ -5,9 +5,9 @@
   border-radius: 50%;
 }
 
-.wrapper {
+.image {
   width: 40px;
   height: 40px;
-  background-color: var(--color-primary);
+  object-fit: cover;
   border-radius: 50%;
 }

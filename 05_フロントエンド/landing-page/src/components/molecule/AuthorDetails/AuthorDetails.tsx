@@ -13,8 +13,12 @@ export const AuthorDetails = (props: AuthorDetailsProps): JSX.Element => {
   return (
     <div className={styles["wrapper"]}>
       <Avatar name={name} image={image} />
-      <p>{name}</p>
-      <p>{`Created ${numberOfPosts} Posts`}</p>
+      <p>
+        <span className={styles["name"]}>{name}</span>
+        <span
+          className={styles["posts"]}
+        >{`Created ${numberOfPosts} Posts`}</span>
+      </p>
     </div>
   )
 }
