@@ -1,7 +1,11 @@
 .wrapper {
-  display: flex;
   height: 100%;
   background-color: var(--color-base-bg);
+}
+
+.inner {
+  display: flex;
+  height: 100%;
 }
 
 .main {
