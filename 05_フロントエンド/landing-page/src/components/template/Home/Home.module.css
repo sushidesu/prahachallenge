@@ -24,3 +24,13 @@
   width: calc(4 / 12 * 100%);
   margin-top: var(--space-y-lg);
 }
+
+@media only screen and (max-width: 1000px) {
+  .side {
+    display: none;
+  }
+
+  .main {
+    width: 100%;
+  }
+}
