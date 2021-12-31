@@ -4,6 +4,15 @@
   gap: var(--space-y-md);
 }
 
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+}
+
+.body {
+  margin-top: var(--space-y-sm);
+}
+
 .footer {
   display: flex;
   align-items: center;

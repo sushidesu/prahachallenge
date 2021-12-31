@@ -25,8 +25,10 @@ export const CardPost = (props: CardPostProps): JSX.Element => {
     <Card>
       <div className={styles["wrapper"]}>
         <p>{date.toLocaleDateString()}</p>
-        <p>{title}</p>
-        <p>{body}</p>
+        <div>
+          <p className={styles["title"]}>{title}</p>
+          <p className={styles["body"]}>{body}</p>
+        </div>
         <div className={styles["footer"]}>
           <div>Read more</div>
           <div>
