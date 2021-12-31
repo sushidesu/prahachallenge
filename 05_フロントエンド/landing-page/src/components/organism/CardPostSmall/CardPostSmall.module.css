@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-y-md);
+  align-items: center;
+}
+
+/* .header {} */
+
+.content {
+  width: 100%;
+  font-size: var(--font-size-md-plus);
+  font-weight: 500;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

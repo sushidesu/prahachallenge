@@ -10,13 +10,20 @@ import {
 } from "@/components/molecule/AuthorDetails"
 import { SideItem } from "@/components/molecule/SideItem"
 import { CardPost, CardPostProps } from "@/components/organism/CardPost"
+import {
+  CardPostSmall,
+  CardPostSmallProps,
+} from "@/components/organism/CardPostSmall"
 
 const _img = (image?: string): string | undefined =>
   image ? `/image/${image}` : undefined
 
 const _genPost = (title: string, image?: string): CardPostProps => ({
   date: new Date(),
-  tags: ["Larabel"],
+  tag: {
+    name: "Larabel",
+    link: "",
+  },
   title,
   body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero!",
   link: "/#",
@@ -69,6 +76,10 @@ export const Home = (): JSX.Element => {
     _genCategory("PHP"),
   ]
 
+  const resentPost: CardPostSmallProps = _genPost(
+    "Build Your New Idea with Laravel Freamwork."
+  )
+
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
@@ -102,7 +113,7 @@ export const Home = (): JSX.Element => {
               </Card>
             </SideItem>
             <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
-              <Card>Build Your New Idea with Laravel Freamwork.</Card>
+              <CardPostSmall {...resentPost} />
             </SideItem>
           </List>
         </Box>

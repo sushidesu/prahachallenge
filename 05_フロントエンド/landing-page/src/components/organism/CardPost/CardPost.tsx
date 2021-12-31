@@ -5,7 +5,10 @@ import { Author } from "@/components/molecule/Author"
 
 type Post = {
   date: Date
-  tags: string[]
+  tag: {
+    name: string
+    link: string
+  }
   title: string
   body: string
   link: string

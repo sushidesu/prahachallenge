@@ -1,0 +1,37 @@
+import styles from "./CardPostSmall.module.css"
+
+import { Card } from "@/components/atom/Card"
+import { Author } from "@/components/molecule/Author"
+
+export type CardPostSmallProps = {
+  date: Date
+  title: string
+  tag: {
+    name: string
+    link: string
+  }
+  author: {
+    name: string
+    image?: string | undefined
+  }
+}
+
+export const CardPostSmall = (props: CardPostSmallProps): JSX.Element => {
+  const { date, title, tag, author } = props
+  return (
+    <Card>
+      <div className={styles["wrapper"]}>
+        <div className={styles["header"]}>
+          <p>{tag.name}</p>
+        </div>
+        <div className={styles["content"]}>
+          <p>{title}</p>
+        </div>
+        <div className={styles["footer"]}>
+          <Author {...author} />
+          <p>{date.toLocaleDateString()}</p>
+        </div>
+      </div>
+    </Card>
+  )
+}
