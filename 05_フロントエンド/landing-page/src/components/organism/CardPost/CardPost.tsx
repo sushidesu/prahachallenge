@@ -1,8 +1,10 @@
 import Link from "next/link"
 
+
 import styles from "./CardPost.module.css"
 
 import { Card } from "@/components/atom/Card"
+import { DateText } from "@/components/atom/DateText"
 import { Author } from "@/components/molecule/Author"
 
 type Post = {
@@ -29,7 +31,7 @@ export const CardPost = (props: CardPostProps): JSX.Element => {
   return (
     <Card>
       <div className={styles["wrapper"]}>
-        <p>{date.toLocaleDateString()}</p>
+        <DateText date={date} />
         <div>
           <p className={styles["title"]}>{title}</p>
           <p className={styles["body"]}>{body}</p>
