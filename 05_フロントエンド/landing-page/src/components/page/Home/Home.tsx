@@ -82,6 +82,7 @@ export const Home = (): JSX.Element => {
     categories,
     resentPost,
     options,
+    pagenations: ["/#", "/#", "/#"],
   }
 
   return <HomeTemplate {...props} />

@@ -30,10 +30,11 @@ export type HomeTemplateProps = {
   categories: _Category[]
   resentPost: CardPostSmallProps
   options: OptionItem[]
+  pagenations: string[]
 }
 
 export const Home = (props: HomeTemplateProps): JSX.Element => {
-  const { posts, authors, categories, resentPost, options } = props
+  const { posts, authors, categories, resentPost, options, pagenations } = props
 
   return (
     <div className={styles["wrapper"]}>
@@ -49,7 +50,7 @@ export const Home = (props: HomeTemplateProps): JSX.Element => {
                     <Select options={options} />
                   </div>
                 }
-                footer={<Pagenation links={["/#", "/#", "/#"]} />}
+                footer={<Pagenation links={pagenations} />}
               >
                 <List size="md">
                   {posts.map((post, i) => (
