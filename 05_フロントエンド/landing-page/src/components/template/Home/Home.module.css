@@ -9,7 +9,8 @@
 }
 
 .main {
-  width: 60%;
+  width: calc(8 / 12 * 100%);
+  padding-bottom: 100px;
   margin-top: var(--space-y-lg);
 }
 
@@ -20,6 +21,6 @@
 }
 
 .side {
-  width: 40%;
+  width: calc(4 / 12 * 100%);
   margin-top: var(--space-y-lg);
 }
