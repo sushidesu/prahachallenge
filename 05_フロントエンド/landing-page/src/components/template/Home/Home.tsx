@@ -99,7 +99,7 @@ export const Home = (): JSX.Element => {
           <Section
             size="lg"
             header={
-              <div>
+              <div className={styles["main-header"]}>
                 <SectionTitle>Post</SectionTitle>
                 <Select options={options} />
               </div>

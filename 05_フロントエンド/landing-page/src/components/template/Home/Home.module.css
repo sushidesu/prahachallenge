@@ -9,6 +9,12 @@
   margin-top: var(--space-y-lg);
 }
 
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .side {
   width: 40%;
   margin-top: var(--space-y-lg);
