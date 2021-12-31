@@ -1,13 +1,13 @@
 import { LayoutDefault } from "@/components/ui/LayoutDefault"
 
-import { Home } from "./Home"
+import { Home, HomeTemplateProps } from "./Home"
 
 import { Header } from "@/components/organism/Header"
 
-export const HomePage = (): JSX.Element => {
+export const HomePage = (props: HomeTemplateProps): JSX.Element => {
   return (
     <LayoutDefault header={<Header />}>
-      <Home />
+      <Home {...props} />
     </LayoutDefault>
   )
 }
