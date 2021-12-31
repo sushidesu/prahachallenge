@@ -12,7 +12,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
   } else {
     return (
       <div className={styles["wrapper"]}>
-        <img alt={name} />
+        <img src={image} alt={name} />
       </div>
     )
   }

@@ -25,7 +25,7 @@ const _genPost = (title: string): CardPostProps => ({
 
 const _genAuthor = (name: string, image?: string): AuthorDetailsProps => ({
   name,
-  image,
+  image: image ? `/image/${image}` : undefined,
   numberOfPosts: 20,
 })
 
@@ -50,9 +50,9 @@ export const Home = (): JSX.Element => {
 
   const authors: AuthorDetailsProps[] = [
     _genAuthor("Alex JohnCreated"),
-    _genAuthor("Jane DoeCreated"),
+    _genAuthor("Jane DoeCreated", "neko.png"),
     _genAuthor("Lisa WayCreated"),
-    _genAuthor("Steve MattCreated"),
+    _genAuthor("Steve MattCreated", "sushidesu.jpg"),
     _genAuthor("Khatab WedaaCreated"),
   ]
 
