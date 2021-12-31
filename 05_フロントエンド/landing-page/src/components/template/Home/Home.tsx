@@ -23,9 +23,9 @@ const _genPost = (title: string): CardPostProps => ({
   },
 })
 
-const _genAuthor = (name: string): AuthorDetailsProps => ({
+const _genAuthor = (name: string, image?: string): AuthorDetailsProps => ({
   name,
-  image: "/dummy",
+  image,
   numberOfPosts: 20,
 })
 
