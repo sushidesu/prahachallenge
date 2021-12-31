@@ -59,11 +59,11 @@ export const Home = (): JSX.Element => {
   ]
 
   const authors: AuthorDetailsProps[] = [
-    _genAuthor("Alex JohnCreated"),
-    _genAuthor("Jane DoeCreated", "neko.png"),
-    _genAuthor("Lisa WayCreated"),
-    _genAuthor("Steve MattCreated", "sushidesu.jpg"),
-    _genAuthor("Khatab WedaaCreated"),
+    _genAuthor("Alex John"),
+    _genAuthor("Jane Doe", "neko.png"),
+    _genAuthor("Lisa Way"),
+    _genAuthor("Steve Matt", "sushidesu.jpg"),
+    _genAuthor("Khatab Wedaa"),
   ]
 
   const categories: _Category[] = [
