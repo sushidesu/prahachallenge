@@ -1,6 +1,7 @@
 import styles from "./CardPost.module.css"
 
 import { Card } from "@/components/atom/Card"
+import { Author } from "@/components/molecule/Author"
 
 type Post = {
   date: Date
@@ -13,19 +14,25 @@ type Post = {
 
 type Author = {
   name: string
-  image: string
+  image?: string | undefined
 }
 
 export type CardPostProps = Post
 
 export const CardPost = (props: CardPostProps): JSX.Element => {
-  const { date, title, body } = props
+  const { date, title, body, author } = props
   return (
     <Card>
       <div className={styles["wrapper"]}>
         <p>{date.toLocaleDateString()}</p>
         <p>{title}</p>
         <p>{body}</p>
+        <div className={styles["footer"]}>
+          <div>Read more</div>
+          <div>
+            <Author name={author.name} image={author.image} />
+          </div>
+        </div>
       </div>
     </Card>
   )

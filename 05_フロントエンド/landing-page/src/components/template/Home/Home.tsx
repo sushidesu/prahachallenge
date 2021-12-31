@@ -11,7 +11,10 @@ import {
 import { SideItem } from "@/components/molecule/SideItem"
 import { CardPost, CardPostProps } from "@/components/organism/CardPost"
 
-const _genPost = (title: string): CardPostProps => ({
+const _img = (image?: string): string | undefined =>
+  image ? `/image/${image}` : undefined
+
+const _genPost = (title: string, image?: string): CardPostProps => ({
   date: new Date(),
   tags: ["Larabel"],
   title,
@@ -19,13 +22,13 @@ const _genPost = (title: string): CardPostProps => ({
   link: "/#",
   author: {
     name: "Alex John",
-    image: "/dummy",
+    image: _img(image),
   },
 })
 
 const _genAuthor = (name: string, image?: string): AuthorDetailsProps => ({
   name,
-  image: image ? `/image/${image}` : undefined,
+  image: _img(image),
   numberOfPosts: 20,
 })
 
