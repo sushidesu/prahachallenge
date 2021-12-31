@@ -1,6 +1,7 @@
 import styles from "./Home.module.css"
 
 import { Box } from "@/components/atom/Box"
+import { Button } from "@/components/atom/Button"
 import { Card } from "@/components/atom/Card"
 import { List } from "@/components/atom/List"
 import { Section } from "@/components/atom/Section"
@@ -106,8 +107,8 @@ export const Home = (): JSX.Element => {
             }
             footer={
               <div>
-                <button>previous</button>
-                <button>next</button>
+                <Button>previous</Button>
+                <Button>next</Button>
               </div>
             }
           >
