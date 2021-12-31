@@ -1,11 +1,11 @@
-import styles from "./SideItem.module.css"
+import styles from "./Section.module.css"
 
-type SideItemProps = {
+type SectionProps = {
   header: React.ReactChild
   children: React.ReactChild
 }
 
-export const SideItem = (props: SideItemProps): JSX.Element => {
+export const Section = (props: SectionProps): JSX.Element => {
   const { header, children } = props
   return (
     <div>

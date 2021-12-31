@@ -3,12 +3,12 @@ import styles from "./Home.module.css"
 import { Box } from "@/components/atom/Box"
 import { Card } from "@/components/atom/Card"
 import { List } from "@/components/atom/List"
+import { Section } from "@/components/atom/Section"
 import { SectionTitle } from "@/components/atom/SectionTitle"
 import {
   AuthorDetails,
   AuthorDetailsProps,
 } from "@/components/molecule/AuthorDetails"
-import { SideItem } from "@/components/molecule/SideItem"
 import { CardPost, CardPostProps } from "@/components/organism/CardPost"
 import {
   CardPostSmall,
@@ -94,7 +94,7 @@ export const Home = (): JSX.Element => {
       <div className={styles["side"]}>
         <Box spaceX="lg">
           <List size="lg">
-            <SideItem header={<SectionTitle>Authors</SectionTitle>}>
+            <Section header={<SectionTitle>Authors</SectionTitle>}>
               <Card>
                 <List size="sm">
                   {authors.map((author, i) => (
@@ -102,8 +102,8 @@ export const Home = (): JSX.Element => {
                   ))}
                 </List>
               </Card>
-            </SideItem>
-            <SideItem header={<SectionTitle>Categories</SectionTitle>}>
+            </Section>
+            <Section header={<SectionTitle>Categories</SectionTitle>}>
               <Card>
                 <List size="sm">
                   {categories.map((category, i) => (
@@ -111,10 +111,10 @@ export const Home = (): JSX.Element => {
                   ))}
                 </List>
               </Card>
-            </SideItem>
-            <SideItem header={<SectionTitle>Recent Post</SectionTitle>}>
+            </Section>
+            <Section header={<SectionTitle>Recent Post</SectionTitle>}>
               <CardPostSmall {...resentPost} />
-            </SideItem>
+            </Section>
           </List>
         </Box>
       </div>
