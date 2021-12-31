@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.wrapper::before {
+  position: absolute;
+  top: 50%;
+  right: var(--space-x-md);
+  width: 0;
+  height: 0;
+  content: "";
+  border-color: var(--color-gray-darker) transparent transparent transparent;
+  border-style: solid;
+  border-width: 8px 6px 0;
+  transform: translate(0, -50%);
+}
+
+.select {
+  padding: var(--space-y-sm) var(--space-x-md);
+  background-color: var(--color-white);
+  border-color: var(--color-gray);
+  border-radius: var(--radius-md);
+  appearance: none;
+}

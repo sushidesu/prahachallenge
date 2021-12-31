@@ -5,6 +5,7 @@ import { Card } from "@/components/atom/Card"
 import { List } from "@/components/atom/List"
 import { Section } from "@/components/atom/Section"
 import { SectionTitle } from "@/components/atom/SectionTitle"
+import { Select, OptionItem } from "@/components/atom/Select"
 import {
   AuthorDetails,
   AuthorDetailsProps,
@@ -80,13 +81,29 @@ export const Home = (): JSX.Element => {
     "Build Your New Idea with Laravel Freamwork."
   )
 
+  const options: OptionItem[] = [
+    {
+      label: "Latest",
+      value: "latest",
+    },
+    {
+      label: "Last Week",
+      value: "last-week",
+    },
+  ]
+
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
         <Box spaceX="lg">
           <Section
             size="lg"
-            header={<SectionTitle>Post</SectionTitle>}
+            header={
+              <div>
+                <SectionTitle>Post</SectionTitle>
+                <Select options={options} />
+              </div>
+            }
             footer={
               <div>
                 <button>previous</button>
