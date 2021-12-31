@@ -2,7 +2,7 @@ import styles from "./LayoutDefault.module.css"
 
 type LayoutDefaultProps = {
   header: React.ReactNode
-  footer: React.ReactNode
+  footer?: React.ReactNode
   children?: React.ReactNode
 }
 
@@ -13,7 +13,7 @@ export const LayoutDefault = (props: LayoutDefaultProps): JSX.Element => {
     <div className={styles["wrapper"]}>
       <header className={styles["header"]}>{header}</header>
       <main className={styles["main"]}>{children}</main>
-      <footer className={styles["footer"]}>{footer}</footer>
+      {footer ? <footer className={styles["footer"]}>{footer}</footer> : null}
     </div>
   )
 }

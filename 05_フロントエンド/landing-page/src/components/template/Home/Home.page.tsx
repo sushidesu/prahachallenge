@@ -6,7 +6,7 @@ import { Header } from "@/components/organism/Header"
 
 export const HomePage = (): JSX.Element => {
   return (
-    <LayoutDefault header={<Header />} footer={<div>© footer</div>}>
+    <LayoutDefault header={<Header />}>
       <Home />
     </LayoutDefault>
   )
