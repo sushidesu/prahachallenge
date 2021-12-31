@@ -27,4 +27,10 @@
   --space-x-sm: 0.4rem;
   --space-x-md: 1rem;
   --space-x-lg: 2rem;
+
+  /* font-size */
+  --font-size-sm: 0.8rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.3rem;
+  --font-size-xl: 1.5rem;
 }
