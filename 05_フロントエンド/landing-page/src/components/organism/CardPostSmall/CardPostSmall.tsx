@@ -1,6 +1,7 @@
 import styles from "./CardPostSmall.module.css"
 
 import { Card } from "@/components/atom/Card"
+import { DateText } from "@/components/atom/DateText"
 import { Author } from "@/components/molecule/Author"
 
 export type CardPostSmallProps = {
@@ -29,7 +30,7 @@ export const CardPostSmall = (props: CardPostSmallProps): JSX.Element => {
         </div>
         <div className={styles["footer"]}>
           <Author {...author} />
-          <p>{date.toLocaleDateString()}</p>
+          <DateText date={date} />
         </div>
       </div>
     </Card>
