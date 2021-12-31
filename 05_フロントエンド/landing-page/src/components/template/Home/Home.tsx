@@ -4,6 +4,7 @@ import { Box } from "@/components/atom/Box"
 import { Card } from "@/components/atom/Card"
 import { Container } from "@/components/atom/Container"
 import { List } from "@/components/atom/List"
+import { ListItem } from "@/components/atom/ListItem"
 import { Section } from "@/components/atom/Section"
 import { SectionTitle } from "@/components/atom/SectionTitle"
 import { Select, OptionItem } from "@/components/atom/Select"
@@ -70,7 +71,6 @@ export const Home = (): JSX.Element => {
   ]
 
   const categories: _Category[] = [
-    _genCategory("PHP"),
     _genCategory("AWS"),
     _genCategory("Laravel"),
     _genCategory("Vue"),
@@ -134,7 +134,9 @@ export const Home = (): JSX.Element => {
                   <Card>
                     <List size="sm">
                       {categories.map((category, i) => (
-                        <p key={i}>{category.name}</p>
+                        <ListItem key={i}>
+                          <p>{category.name}</p>
+                        </ListItem>
                       ))}
                     </List>
                   </Card>
