@@ -1,0 +1,15 @@
+.wrapper {
+  width: fit-content;
+  padding: 4px 8px;
+  color: var(--color-primary-text);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.wrapper.md {
+  font-weight: bold;
+}
+
+.wrapper.sm {
+  font-size: var(--font-size-sm);
+}

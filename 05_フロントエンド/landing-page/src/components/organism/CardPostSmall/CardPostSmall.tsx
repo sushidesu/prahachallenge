@@ -2,6 +2,7 @@ import styles from "./CardPostSmall.module.css"
 
 import { Card } from "@/components/atom/Card"
 import { DateText } from "@/components/atom/DateText"
+import { Tag } from "@/components/atom/Tag"
 import { Author } from "@/components/molecule/Author"
 
 export type CardPostSmallProps = {
@@ -23,7 +24,7 @@ export const CardPostSmall = (props: CardPostSmallProps): JSX.Element => {
     <Card>
       <div className={styles["wrapper"]}>
         <div className={styles["header"]}>
-          <p>{tag.name}</p>
+          <Tag size="sm">{tag.name}</Tag>
         </div>
         <div className={styles["content"]}>
           <p>{title}</p>

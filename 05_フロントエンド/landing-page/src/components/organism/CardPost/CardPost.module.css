@@ -4,6 +4,12 @@
   gap: var(--space-y-md);
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .title {
   font-size: var(--font-size-lg);
   font-weight: bold;

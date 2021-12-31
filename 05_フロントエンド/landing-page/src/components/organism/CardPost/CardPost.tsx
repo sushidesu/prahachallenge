@@ -1,10 +1,10 @@
 import Link from "next/link"
 
-
 import styles from "./CardPost.module.css"
 
 import { Card } from "@/components/atom/Card"
 import { DateText } from "@/components/atom/DateText"
+import { Tag } from "@/components/atom/Tag"
 import { Author } from "@/components/molecule/Author"
 
 type Post = {
@@ -27,11 +27,14 @@ type Author = {
 export type CardPostProps = Post
 
 export const CardPost = (props: CardPostProps): JSX.Element => {
-  const { date, title, body, author, link } = props
+  const { date, tag, title, body, author, link } = props
   return (
     <Card>
       <div className={styles["wrapper"]}>
-        <DateText date={date} />
+        <div className={styles["header"]}>
+          <DateText date={date} />
+          <Tag>{tag.name}</Tag>
+        </div>
         <div>
           <p className={styles["title"]}>{title}</p>
           <p className={styles["body"]}>{body}</p>
