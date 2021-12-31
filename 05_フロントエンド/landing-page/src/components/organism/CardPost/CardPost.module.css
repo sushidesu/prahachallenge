@@ -18,3 +18,11 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.link {
+  color: var(--color-link);
+}
+
+.link:hover {
+  text-decoration: underline;
+}

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import styles from "./CardPost.module.css"
 
 import { Card } from "@/components/atom/Card"
@@ -23,7 +25,7 @@ type Author = {
 export type CardPostProps = Post
 
 export const CardPost = (props: CardPostProps): JSX.Element => {
-  const { date, title, body, author } = props
+  const { date, title, body, author, link } = props
   return (
     <Card>
       <div className={styles["wrapper"]}>
@@ -33,7 +35,9 @@ export const CardPost = (props: CardPostProps): JSX.Element => {
           <p className={styles["body"]}>{body}</p>
         </div>
         <div className={styles["footer"]}>
-          <div>Read more</div>
+          <Link href={link} passHref>
+            <a className={styles["link"]}>Read more</a>
+          </Link>
           <div>
             <Author name={author.name} image={author.image} />
           </div>
