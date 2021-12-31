@@ -1,3 +1,16 @@
-.content {
-  margin-top: var(--space-y-md);
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.lg {
+  gap: var(--space-y-lg);
+}
+
+.md {
+  gap: var(--space-y-md);
+}
+
+.sm {
+  gap: var(--space-y-sm);
 }

@@ -84,11 +84,22 @@ export const Home = (): JSX.Element => {
     <div className={styles["wrapper"]}>
       <div className={styles["main"]}>
         <Box spaceX="lg">
-          <List size="md">
-            {posts.map((post, i) => (
-              <CardPost key={i} {...post} />
-            ))}
-          </List>
+          <Section
+            size="lg"
+            header={<SectionTitle>Post</SectionTitle>}
+            footer={
+              <div>
+                <button>previous</button>
+                <button>next</button>
+              </div>
+            }
+          >
+            <List size="md">
+              {posts.map((post, i) => (
+                <CardPost key={i} {...post} />
+              ))}
+            </List>
+          </Section>
         </Box>
       </div>
       <div className={styles["side"]}>

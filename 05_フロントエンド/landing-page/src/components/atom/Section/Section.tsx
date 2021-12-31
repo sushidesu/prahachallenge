@@ -1,16 +1,19 @@
 import styles from "./Section.module.css"
 
 type SectionProps = {
-  header: React.ReactChild
+  header?: React.ReactNode
   children: React.ReactChild
+  footer?: React.ReactNode
+  size?: "sm" | "md" | "lg"
 }
 
 export const Section = (props: SectionProps): JSX.Element => {
-  const { header, children } = props
+  const { header, children, footer, size = "md" } = props
   return (
-    <div>
-      <div className={styles["header"]}>{header}</div>
-      <div className={styles["content"]}>{children}</div>
-    </div>
+    <section className={`${styles["wrapper"]} ${styles[size]}`}>
+      {header ? <div>{header}</div> : null}
+      <div>{children}</div>
+      {footer ? <div>{footer}</div> : null}
+    </section>
   )
 }
