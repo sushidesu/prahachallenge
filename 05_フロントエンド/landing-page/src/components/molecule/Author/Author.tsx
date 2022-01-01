@@ -11,7 +11,9 @@ export const Author = (props: AuthorProps): JSX.Element => {
   const { name, image } = props
   return (
     <div className={styles["wrapper"]}>
-      <Avatar name={name} image={image} />
+      <div className={styles["avatar"]}>
+        <Avatar name={name} image={image} />
+      </div>
       <p>{name}</p>
     </div>
   )
