@@ -8,5 +8,11 @@ type HamburgerButtonProps = Omit<
 >
 
 export const HamburgerButton = (props: HamburgerButtonProps): JSX.Element => {
-  return <button {...props} className={styles["wrapper"]} />
+  return (
+    <button {...props} className={styles["wrapper"]}>
+      <div className={styles["line"]} />
+      <div className={styles["line"]} />
+      <div className={styles["line"]} />
+    </button>
+  )
 }
