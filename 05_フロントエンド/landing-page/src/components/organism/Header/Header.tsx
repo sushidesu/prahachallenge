@@ -2,6 +2,7 @@ import styles from "./Header.module.css"
 
 import { Box } from "@/components/atom/Box"
 import { Container } from "@/components/atom/Container"
+import { HamburgerButton } from "@/components/atom/HamburgerButton"
 import { Logo } from "@/components/atom/Logo"
 import { TextHoverable } from "@/components/atom/TextHoverable"
 import { LinksHorizontal } from "@/components/molecule/LinksHorizontal"
@@ -37,6 +38,9 @@ export const Header = (): JSX.Element => {
                   <TextHoverable key={link.href}>{link.label}</TextHoverable>
                 ))}
               </LinksHorizontal>
+            </div>
+            <div className={styles["hamburger"]}>
+              <HamburgerButton />
             </div>
           </div>
         </Box>
