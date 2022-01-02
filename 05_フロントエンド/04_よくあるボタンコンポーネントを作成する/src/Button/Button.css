@@ -6,11 +6,21 @@
   border-radius: var(--radius-md);
 }
 
+.button:disabled {
+  cursor: default;
+}
+
 .button.red {
   --color-red: rgb(255, 99, 99);
   --color-red-text: rgb(255, 255, 255);
   background-color: var(--color-red);
   color: var(--color-red-text);
+}
+.button.red:disabled {
+  --color-red-disabled: rgba(224, 147, 134, 0.616);
+  --color-red-text-disabled: rgba(156, 107, 103, 0.8);
+  background-color: var(--color-red-disabled);
+  color: var(--color-red-text-disabled);
 }
 
 .button.blue {
@@ -19,12 +29,24 @@
   background-color: var(--color-blue);
   color: var(--color-blue-text);
 }
+.button.blue:disabled {
+  --color-blue-disabled: rgba(119, 192, 214, 0.616);
+  --color-blue-text-disabled: rgba(103, 139, 156, 0.8);
+  background-color: var(--color-blue-disabled);
+  color: var(--color-blue-text-disabled);
+}
 
 .button.green {
   --color-green: rgb(35, 201, 118);
   --color-green-text: rgb(255, 255, 255);
   background-color: var(--color-green);
   color: var(--color-green-text);
+}
+.button.green:disabled {
+  --color-green-disabled: rgba(108, 194, 154, 0.616);
+  --color-green-text-disabled: rgba(94, 145, 99, 0.8);
+  background-color: var(--color-green-disabled);
+  color: var(--color-green-text-disabled);
 }
 
 .button.small {

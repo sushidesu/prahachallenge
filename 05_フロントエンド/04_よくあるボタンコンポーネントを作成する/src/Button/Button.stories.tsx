@@ -36,7 +36,7 @@ export const All = () => {
     >
       <div>
         <p>Blue</p>
-        <Button {...defaultProps} />
+        <Button {...defaultProps} color="blue" />
       </div>
       <div>
         <p>Green</p>
@@ -45,6 +45,18 @@ export const All = () => {
       <div>
         <p>Red</p>
         <Button {...defaultProps} color="red" />
+      </div>
+      <div>
+        <p>Blue (Disabled)</p>
+        <Button {...defaultProps} color="blue" disabled />
+      </div>
+      <div>
+        <p>Green (Disabled)</p>
+        <Button {...defaultProps} color="green" disabled />
+      </div>
+      <div>
+        <p>Red (Disabled)</p>
+        <Button {...defaultProps} color="red" disabled />
       </div>
       <div>
         <p>Small</p>
