@@ -20,11 +20,6 @@ const defaultProps: ButtonProps = {
   children: "hello",
 }
 
-export const Default = generate()
-Default.args = {
-  ...defaultProps,
-}
-
 export const All = () => {
   return (
     <div
@@ -72,6 +67,11 @@ export const All = () => {
       </div>
     </div>
   )
+}
+
+export const Default = generate()
+Default.args = {
+  ...defaultProps,
 }
 
 export const Small = generate()
