@@ -1,14 +1,12 @@
 import React from 'react';
 
-export type ButtonProps = {
+export interface ButtonProps {
   children?: string
   size?: "sm" | "md"
 }
 
-export const Button = (props: ButtonProps) => {
-  const { children, size = "md" } = props
-  console.log(children)
+export const Button = ({ size="md", children }: ButtonProps) => {
   return (
-    <button style={{ fontSize: size === "md" ? "1rem" : ".8rem"}}>{children}</button>
+    <button style={{ fontSize: size === "md" ? "1rem" : ".8rem"}} >{children}</button>
   )
 }
