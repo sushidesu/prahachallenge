@@ -72,10 +72,22 @@ export const All = () => {
 export const Default = generate()
 Default.args = {
   ...defaultProps,
+  children: "応募する",
 }
 
-export const Small = generate()
-Small.args = {
+export const SmallRed = generate()
+SmallRed.args = {
   ...defaultProps,
+  children: "応募する",
+  color: "red",
   size: "small",
+}
+
+export const SmallRedDisabled = generate()
+SmallRedDisabled.args = {
+  ...defaultProps,
+  children: "応募する",
+  color: "red",
+  size: "small",
+  disabled: true,
 }
