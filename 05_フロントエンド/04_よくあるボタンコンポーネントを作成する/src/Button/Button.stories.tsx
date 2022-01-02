@@ -27,7 +27,13 @@ Default.args = {
 
 export const All = () => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: "2rem",
+      }}
+    >
       <div>
         <p>Blue</p>
         <Button {...defaultProps} />
@@ -39,6 +45,18 @@ export const All = () => {
       <div>
         <p>Red</p>
         <Button {...defaultProps} color="red" />
+      </div>
+      <div>
+        <p>Small</p>
+        <Button {...defaultProps} size="small" />
+      </div>
+      <div>
+        <p>Medium</p>
+        <Button {...defaultProps} size="medium" />
+      </div>
+      <div>
+        <p>Large</p>
+        <Button {...defaultProps} size="large" />
       </div>
     </div>
   )

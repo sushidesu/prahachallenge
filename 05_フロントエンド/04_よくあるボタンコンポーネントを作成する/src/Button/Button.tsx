@@ -23,11 +23,7 @@ export const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <button
-      className={clsx("button", color)}
-      style={{ fontSize: size === "medium" ? "1rem" : ".8rem" }}
-      {...rest}
-    >
+    <button className={clsx("button", color, size)} {...rest}>
       {children}
     </button>
   )
