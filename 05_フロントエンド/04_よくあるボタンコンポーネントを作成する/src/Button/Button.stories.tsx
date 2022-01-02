@@ -18,7 +18,6 @@ const generate = () => Template.bind({}) as ComponentStory<typeof Button>
 
 const defaultProps: ButtonProps = {
   children: "hello",
-  size: "medium",
 }
 
 export const Default = generate()
