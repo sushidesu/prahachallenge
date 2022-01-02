@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react"
 
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from "@storybook/react"
 
-import { Button, ButtonProps } from './Button';
+import { Button, ButtonProps } from "./Button"
 
 export default {
   title: "Example/Button",
@@ -17,16 +17,16 @@ const generate = () => Template.bind({}) as ComponentStory<typeof Button>
 
 const defaultProps: ButtonProps = {
   children: "hello",
-  size: "md"
+  size: "medium",
 }
 
 export const Default = generate()
 Default.args = {
-  ...defaultProps
+  ...defaultProps,
 }
 
 export const Small = generate()
 Small.args = {
   ...defaultProps,
-  size: "sm"
+  size: "small",
 }

@@ -1,12 +1,31 @@
-import React from 'react';
+import React from "react"
 
 export interface ButtonProps {
+  /**
+   * ボタンの色
+   */
+  color?: "red" | "blue" | "green"
+  /**
+   * ボタンの大きさ
+   */
+  size?: "small" | "medium" | "large"
   children?: string
-  size?: "sm" | "md"
+  disabled?: boolean
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-export const Button = ({ size="md", children }: ButtonProps) => {
+export const Button = ({
+  color = "blue",
+  size = "medium",
+  children,
+  ...rest
+}: ButtonProps) => {
   return (
-    <button style={{ fontSize: size === "md" ? "1rem" : ".8rem"}} >{children}</button>
+    <button
+      style={{ fontSize: size === "medium" ? "1rem" : ".8rem" }}
+      {...rest}
+    >
+      {children}
+    </button>
   )
 }
