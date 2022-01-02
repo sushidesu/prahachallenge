@@ -1,8 +1,8 @@
 .button {
   border: none;
   padding: 4px 10px;
-  --radius-md: 4px;
   cursor: pointer;
+  --radius-md: 4px;
   border-radius: var(--radius-md);
 }
 
