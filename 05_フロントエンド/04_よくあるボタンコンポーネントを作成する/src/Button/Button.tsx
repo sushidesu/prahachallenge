@@ -1,4 +1,6 @@
 import React from "react"
+import clsx from "clsx"
+import "./Button.css"
 
 export interface ButtonProps {
   /**
@@ -22,6 +24,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      className={clsx("button", color)}
       style={{ fontSize: size === "medium" ? "1rem" : ".8rem" }}
       {...rest}
     >

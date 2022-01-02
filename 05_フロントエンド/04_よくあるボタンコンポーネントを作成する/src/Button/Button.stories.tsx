@@ -25,6 +25,25 @@ Default.args = {
   ...defaultProps,
 }
 
+export const All = () => {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <p>Blue</p>
+        <Button {...defaultProps} />
+      </div>
+      <div>
+        <p>Green</p>
+        <Button {...defaultProps} color="green" />
+      </div>
+      <div>
+        <p>Red</p>
+        <Button {...defaultProps} color="red" />
+      </div>
+    </div>
+  )
+}
+
 export const Small = generate()
 Small.args = {
   ...defaultProps,

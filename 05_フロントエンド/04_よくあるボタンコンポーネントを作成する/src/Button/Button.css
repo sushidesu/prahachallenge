@@ -1,0 +1,17 @@
+.button {
+}
+
+.button.red {
+  --color-red: rgb(255, 99, 99);
+  background-color: var(--color-red);
+}
+
+.button.blue {
+  --color-blue: rgb(31, 163, 224);
+  background-color: var(--color-blue);
+}
+
+.button.green {
+  --color-green: rgb(24, 209, 117);
+  background-color: var(--color-green);
+}
