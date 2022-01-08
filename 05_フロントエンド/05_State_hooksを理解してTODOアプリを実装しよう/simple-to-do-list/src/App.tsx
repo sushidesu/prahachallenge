@@ -1,5 +1,7 @@
 export const App = () => {
   return (
-    <div>hello</div>
+    <div>
+      <button className="btn btn-primary">hello</button>
+    </div>
   )
 }
