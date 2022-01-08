@@ -1,5 +1,4 @@
 import React from "react"
-import ReactDOM from "react-dom"
 
 export const App = () => {
   return (
@@ -120,20 +119,28 @@ class TodoItem extends React.Component<any> {
 	}
 }
 
-class TodoForm extends React.Component<any> {
-	doSubmit(e: any) {
+type TodoFormProps = {
+  onTaskSubmit: any
+}
+
+type TodoFormState = {
+  text: string
+}
+
+class TodoForm extends React.Component<TodoFormProps, TodoFormState> {
+  state: Readonly<TodoFormState> = {
+    text: ""
+  }
+
+  handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+	doSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
-    const taskDom = ReactDOM.findDOMNode(this.refs.task)
-    if (!taskDom) {
-      return
-    }
-		var task = taskDom.nodeValue?.trim();
-		if (!task) {
-			return;
-		}
-		this.props.onTaskSubmit(task);
-		taskDom.nodeValue = '';
-		return;
+    this.props.onTaskSubmit(this.state.text)
 	}
 
 	render() {
@@ -145,7 +152,7 @@ class TodoForm extends React.Component<any> {
 						<div className="form-group">
 							<label htmlFor="task" className="col-md-2 control-label">Task</label>
 							<div className="col-md-10">
-								<input type="text" id="task" ref="task" className="form-control" placeholder="What do you need to do?" />
+								<input type="text" id="task" value={this.state.text} onChange={this.handleChange} className="form-control" placeholder="What do you need to do?" />
 							</div>
 						</div>
 						<div className="row">
