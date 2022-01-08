@@ -88,13 +88,13 @@ class TodoList extends React.Component<any> {
 }
 
 class TodoItem extends React.Component<any> {
-	removeNode(e: any) {
+	removeNode: React.MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
 		this.props.removeNode(this.props.nodeId);
 		return;
 	}
 
-	toggleComplete(e: any) {
+	toggleComplete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
 		this.props.toggleComplete(this.props.nodeId);
 		return;
