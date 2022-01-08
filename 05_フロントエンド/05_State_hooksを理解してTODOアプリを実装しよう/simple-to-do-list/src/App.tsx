@@ -76,7 +76,7 @@ class TodoList extends React.Component<any> {
     const toggleComplete = this.toggleComplete
 		var listNodes = this.props.data.map(function (listItem: any) {
 			return (
-				<TodoItem key={listItem.id} nodeId={listItem.id} task={listItem.task} complete={listItem.complete} removeNode={removeNode} toggleComplete={toggleComplete} />
+				<TodoItem key={listItem.id} nodeId={listItem.id} task={listItem.task} complete={listItem.complete === "true"} removeNode={removeNode} toggleComplete={toggleComplete} />
 			);
 		},this);
 		return (
@@ -87,37 +87,46 @@ class TodoList extends React.Component<any> {
 	}
 }
 
-class TodoItem extends React.Component<any> {
-	removeNode: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+//////////////
+// TodoItem
+//////////////
+
+type TodoItemProps = {
+  nodeId: string
+  task: string
+  complete: boolean
+  removeNode: (nodeId: string) => void
+  toggleComplete: (nodeId: string) => void
+}
+
+const TodoItem = (props: TodoItemProps) => {
+  let classes = 'list-group-item clearfix';
+  if (props.complete) {
+    classes = classes + ' list-group-item-success';
+  }
+
+	const removeNode: React.MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
-		this.props.removeNode(this.props.nodeId);
+		props.removeNode(props.nodeId);
 		return;
 	}
 
-	toggleComplete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+	const toggleComplete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
-		this.props.toggleComplete(this.props.nodeId);
+		props.toggleComplete(props.nodeId);
 		return;
 	}
 
-	updateClass() {}
-
-	render() {
-		var classes = 'list-group-item clearfix';
-		if (this.props.complete === 'true') {
-			classes = classes + ' list-group-item-success';
-		}
-		return (
-			<li className={classes}>
-				{this.props.task}
-				<div className="pull-right" role="group">
-					<button type="button" className="btn btn-xs btn-success img-circle" onClick={this.toggleComplete}>&#x2713;</button>
-          <span> </span>
-          <button type="button" className="btn btn-xs btn-danger img-circle" onClick={this.removeNode}>&#xff38;</button>
-				</div>
-			</li>
-		);
-	}
+  return (
+    <li className={classes}>
+      {props.task}
+      <div className="pull-right" role="group">
+        <button type="button" className="btn btn-xs btn-success img-circle" onClick={toggleComplete}>&#x2713;</button>
+        <span> </span>
+        <button type="button" className="btn btn-xs btn-danger img-circle" onClick={removeNode}>&#xff38;</button>
+      </div>
+    </li>
+  );
 }
 
 type TodoFormState = {
