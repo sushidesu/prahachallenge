@@ -63,11 +63,11 @@ class TodoBox extends React.Component {
 }
 
 class TodoList extends React.Component<any> {
-	removeNode(nodeId: any) {
-		this.props.removeNode(nodeId);
+	removeNode = (nodeId: string) => {
+		this.props.removeNode(nodeId)
 		return;
 	}
-	toggleComplete(nodeId: any) {
+	toggleComplete = (nodeId: string) => {
 		this.props.toggleComplete(nodeId);
 		return;
 	}
