@@ -23,7 +23,7 @@ class TodoBox extends React.Component {
 		return Math.floor(Math.random()*90000) + 10000;
 	}
 
-	handleNodeRemoval(nodeId: any) {
+	handleNodeRemoval = (nodeId: string) => {
 		var data = this.state.data;
 		data = data.filter(function (el) {
 			return el.id !== nodeId;
@@ -40,7 +40,7 @@ class TodoBox extends React.Component {
 		this.setState({data});
 	}
 
-	handleToggleComplete(nodeId: any) {
+	handleToggleComplete = (nodeId: string) => {
 		var data = this.state.data;
 		for (var i in data) {
 			if (data[i].id == nodeId) {
