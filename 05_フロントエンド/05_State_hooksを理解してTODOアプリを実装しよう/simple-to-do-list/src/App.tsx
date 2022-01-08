@@ -32,7 +32,7 @@ class TodoBox extends React.Component {
 		return;
 	}
 
-	handleSubmit(task: any) {
+	handleSubmit = (task: string) => {
 		var data = this.state.data;
 		var id = this.generateId().toString();
 		var complete = 'false';
