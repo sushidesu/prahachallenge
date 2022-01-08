@@ -112,6 +112,7 @@ class TodoItem extends React.Component<any> {
 				{this.props.task}
 				<div className="pull-right" role="group">
 					<button type="button" className="btn btn-xs btn-success img-circle" onClick={this.toggleComplete}>&#x2713;</button>
+          <span> </span>
           <button type="button" className="btn btn-xs btn-danger img-circle" onClick={this.removeNode}>&#xff38;</button>
 				</div>
 			</li>
@@ -119,15 +120,11 @@ class TodoItem extends React.Component<any> {
 	}
 }
 
-type TodoFormProps = {
-  onTaskSubmit: any
-}
-
 type TodoFormState = {
   text: string
 }
 
-class TodoForm extends React.Component<TodoFormProps, TodoFormState> {
+class TodoForm extends React.Component<any, TodoFormState> {
   state: Readonly<TodoFormState> = {
     text: ""
   }
