@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 type Task = {
   id: string
@@ -149,46 +149,43 @@ const TodoItem = (props: TodoItemProps) => {
   );
 }
 
-type TodoFormState = {
-  text: string
+//////////////
+// TodoItem
+//////////////
+
+type TodoFormProps = {
+  onTaskSubmit: (task: string) => void
 }
 
-class TodoForm extends React.Component<any, TodoFormState> {
-  state: Readonly<TodoFormState> = {
-    text: ""
+const TodoForm = (props: TodoFormProps) => {
+  const [text, setText] = useState("")
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setText(e.target.value)
+  }
+  
+  const doSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    props.onTaskSubmit(text)
   }
 
-  handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    this.setState({
-      text: e.target.value
-    })
-  }
-
-	doSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-		e.preventDefault();
-    this.props.onTaskSubmit(this.state.text)
-	}
-
-	render() {
-		return (
-			<div className="commentForm vert-offset-top-2">
-				<hr />
-				<div className="clearfix">
-					<form className="todoForm form-horizontal" onSubmit={this.doSubmit}>
-						<div className="form-group">
-							<label htmlFor="task" className="col-md-2 control-label">Task</label>
-							<div className="col-md-10">
-								<input type="text" id="task" value={this.state.text} onChange={this.handleChange} className="form-control" placeholder="What do you need to do?" />
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-md-10 col-md-offset-2 text-right">
-								<input type="submit" value="Save Item" className="btn btn-primary" />
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		);
-	}
+  return (
+    <div className="commentForm vert-offset-top-2">
+      <hr />
+      <div className="clearfix">
+        <form className="todoForm form-horizontal" onSubmit={doSubmit}>
+          <div className="form-group">
+            <label htmlFor="task" className="col-md-2 control-label">Task</label>
+            <div className="col-md-10">
+              <input type="text" id="task" value={text} onChange={handleChange} className="form-control" placeholder="What do you need to do?" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-10 col-md-offset-2 text-right">
+              <input type="submit" value="Save Item" className="btn btn-primary" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
 }
