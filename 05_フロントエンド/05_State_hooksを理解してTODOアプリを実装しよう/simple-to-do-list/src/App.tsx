@@ -1,5 +1,11 @@
 import React from "react"
 
+type Task = {
+  id: string
+  task: string
+  complete: boolean
+}
+
 export const App = () => {
   return (
     <section className="container vert-offset-top-2">
@@ -13,9 +19,9 @@ export const App = () => {
 class TodoBox extends React.Component {
   state = {
     data: [
-      {"id":"00001","task":"Wake up","complete":"false"},
-      {"id":"00002","task":"Eat breakfast","complete":"false"},
-      {"id":"00003","task":"Go to work","complete":"false"}
+      {"id":"00001","task":"Wake up","complete":false},
+      {"id":"00002","task":"Eat breakfast","complete":false},
+      {"id":"00003","task":"Go to work","complete":false}
     ]
 	}
 
@@ -35,7 +41,7 @@ class TodoBox extends React.Component {
 	handleSubmit = (task: string) => {
 		var data = this.state.data;
 		var id = this.generateId().toString();
-		var complete = 'false';
+		var complete = false;
 		data = data.concat([{id, task, complete}]);
 		this.setState({data});
 	}
@@ -44,7 +50,7 @@ class TodoBox extends React.Component {
 		var data = this.state.data;
 		for (var i in data) {
 			if (data[i].id == nodeId) {
-				data[i].complete = data[i].complete === 'true' ? 'false' : 'true';
+				data[i].complete = !data[i].complete;
 				break;
 			}
 		}
@@ -62,29 +68,43 @@ class TodoBox extends React.Component {
 	}
 }
 
-class TodoList extends React.Component<any> {
-	removeNode = (nodeId: string) => {
-		this.props.removeNode(nodeId)
+//////////////
+// TodoList
+//////////////
+
+type TodoListProps = {
+  data: Task[]
+  removeNode: (nodeId: string) => void
+  toggleComplete: (nodeId: string) => void
+}
+
+const TodoList = (props: TodoListProps) => {
+	const removeNode = (nodeId: string) => {
+		props.removeNode(nodeId)
 		return;
 	}
-	toggleComplete = (nodeId: string) => {
-		this.props.toggleComplete(nodeId);
+	const toggleComplete = (nodeId: string) => {
+		props.toggleComplete(nodeId);
 		return;
 	}
-	render() {
-    const removeNode = this.removeNode
-    const toggleComplete = this.toggleComplete
-		var listNodes = this.props.data.map(function (listItem: any) {
-			return (
-				<TodoItem key={listItem.id} nodeId={listItem.id} task={listItem.task} complete={listItem.complete === "true"} removeNode={removeNode} toggleComplete={toggleComplete} />
-			);
-		},this);
-		return (
-			<ul className="list-group">
-				{listNodes}
-			</ul>
-		);
-	}
+  const listNodes = props.data.map((listItem) => {
+    return (
+      <TodoItem
+        key={listItem.id}
+        nodeId={listItem.id}
+        task={listItem.task}
+        complete={listItem.complete}
+        removeNode={removeNode}
+        toggleComplete={toggleComplete}
+      />
+    )
+  })
+
+  return (
+    <ul className="list-group">
+      {listNodes}
+    </ul>
+  );
 }
 
 //////////////
