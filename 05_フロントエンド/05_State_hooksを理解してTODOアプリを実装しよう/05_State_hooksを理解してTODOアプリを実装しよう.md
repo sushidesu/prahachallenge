@@ -31,7 +31,23 @@ hooksメリット
 
 ## 課題2
 
-リファクタリング
+Todoアプリのリファクタリング
+
+- リファクタリング後のコード
+  - [simple-to-do-list/src/App.tsx](./simple-to-do-list/src/App.tsx)
+  - [simple-to-do-list/src/useTodo.ts](./simple-to-do-list/src/useTodo.ts)
+- リファクタリング前と後の比較: https://github.com/sushidesu/prahachallenge/compare/a5d83d0cadc2342887a49a01056783698d2aed4f...bbadd6abe559837327b5796e24ccceee032324b6
+- やったこと
+  - `TodoBox` のロジックを `useTodo` に移動
+  - `TodoItem` は受け取ったものを表示するだけのシンプルなものに変更
+    - 削除ボタン/完了ボタン用のハンドラを、ボタンに直接受け渡すように変更した
+  - `TodoList` は削除
+  - その他 `const` を使用する、クラスコンポーネントから関数コンポーネントへの変更、型をつけるなど細かい修正
+- 感想
+  - 元コードのReactのバージョンが古すぎて(v0.13.0)、hooksすら使えなかった
+  - 新しいバージョンに移したかったが、新しいバージョンにはないdeprecatedなAPIが使われていたた (`React.createClass`, `React.findDOMNode` など)
+  - 一般的なclassコンポーネントの実装に移し替えた後、リファクタリングを行った
+  - ↑classコンポーネントに移し替えるのが一番大変だった！！
 
 ## 課題3
 
