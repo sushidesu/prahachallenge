@@ -16,7 +16,7 @@ export const App = () => {
 //////////////
 
 const TodoBox = () => {
-  const [data, addTodo, removeTodo, toggleComplete] = useTodo([
+  const [tasks, addTodo, removeTodo, toggleComplete] = useTodo([
     {"id":"00001","task":"Wake up","complete":false},
     {"id":"00002","task":"Eat breakfast","complete":false},
     {"id":"00003","task":"Go to work","complete":false}
@@ -41,48 +41,20 @@ const TodoBox = () => {
   return (
     <div className="well">
       <h1 className="vert-offset-top-0">To do:</h1>
-      <TodoList data={data} removeNode={handleNodeRemoval} toggleComplete={handleToggleComplete} />
+      <ul className="list-group">
+        {tasks.map(task => (
+          <TodoItem
+            key={task.id}
+            nodeId={task.id}
+            task={task.task}
+            complete={task.complete}
+            removeNode={handleNodeRemoval}
+            toggleComplete={handleToggleComplete}
+          />
+        ))}
+      </ul>
       <TodoForm onTaskSubmit={handleSubmit} />
     </div>
-  );
-}
-
-//////////////
-// TodoList
-//////////////
-
-type TodoListProps = {
-  data: Task[]
-  removeNode: (nodeId: string) => void
-  toggleComplete: (nodeId: string) => void
-}
-
-const TodoList = (props: TodoListProps) => {
-	const removeNode = (nodeId: string) => {
-		props.removeNode(nodeId)
-		return;
-	}
-	const toggleComplete = (nodeId: string) => {
-		props.toggleComplete(nodeId);
-		return;
-	}
-  const listNodes = props.data.map((listItem) => {
-    return (
-      <TodoItem
-        key={listItem.id}
-        nodeId={listItem.id}
-        task={listItem.task}
-        complete={listItem.complete}
-        removeNode={removeNode}
-        toggleComplete={toggleComplete}
-      />
-    )
-  })
-
-  return (
-    <ul className="list-group">
-      {listNodes}
-    </ul>
   );
 }
 
