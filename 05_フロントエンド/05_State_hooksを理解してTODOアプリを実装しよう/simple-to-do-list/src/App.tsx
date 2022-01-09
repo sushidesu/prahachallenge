@@ -16,56 +16,59 @@ export const App = () => {
   )
 }
 
-class TodoBox extends React.Component {
-  state = {
-    data: [
-      {"id":"00001","task":"Wake up","complete":false},
-      {"id":"00002","task":"Eat breakfast","complete":false},
-      {"id":"00003","task":"Go to work","complete":false}
-    ]
-	}
+//////////////
+// TodoList
+//////////////
 
-	generateId() {
+const TodoBox = () => {
+  const [data, setData] = useState<Task[]>([
+    {"id":"00001","task":"Wake up","complete":false},
+    {"id":"00002","task":"Eat breakfast","complete":false},
+    {"id":"00003","task":"Go to work","complete":false}
+  ])
+
+	const generateId = () => {
 		return Math.floor(Math.random()*90000) + 10000;
 	}
 
-	handleNodeRemoval = (nodeId: string) => {
-		var data = this.state.data;
-		data = data.filter(function (el) {
-			return el.id !== nodeId;
-  })
-		this.setState({data});
-		return;
+	const handleNodeRemoval = (nodeId: string) => {
+    setData(prev => {
+      const next = [...prev]
+      return next.filter((el) => {
+        return el.id !== nodeId
+      })
+    })
 	}
 
-	handleSubmit = (task: string) => {
-		var data = this.state.data;
-		var id = this.generateId().toString();
-		var complete = false;
-		data = data.concat([{id, task, complete}]);
-		this.setState({data});
+	const handleSubmit = (task: string) => {
+		const id = generateId().toString();
+		const complete = false
+    setData(prev => {
+      return prev.concat({ id, task, complete })
+    })
 	}
 
-	handleToggleComplete = (nodeId: string) => {
-		var data = this.state.data;
-		for (var i in data) {
-			if (data[i].id == nodeId) {
-				data[i].complete = !data[i].complete;
-				break;
-			}
-		}
-		this.setState({data});
-		return;
+	const handleToggleComplete = (nodeId: string) => {
+    setData(prev => {
+      const next = [...prev]
+      return next.map(task => {
+        if (task.id === nodeId) {
+          const target = {...task}
+          target.complete = !target.complete
+          return target
+        }
+        return task
+      })
+    })
 	}
-	render() {
-		return (
-			<div className="well">
-				<h1 className="vert-offset-top-0">To do:</h1>
-				<TodoList data={this.state.data} removeNode={this.handleNodeRemoval} toggleComplete={this.handleToggleComplete} />
-				<TodoForm onTaskSubmit={this.handleSubmit} />
-			</div>
-		);
-	}
+
+  return (
+    <div className="well">
+      <h1 className="vert-offset-top-0">To do:</h1>
+      <TodoList data={data} removeNode={handleNodeRemoval} toggleComplete={handleToggleComplete} />
+      <TodoForm onTaskSubmit={handleSubmit} />
+    </div>
+  );
 }
 
 //////////////
