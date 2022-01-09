@@ -39,6 +39,11 @@ Todoアプリのリファクタリング
 - リファクタリング前と後の比較: https://github.com/sushidesu/prahachallenge/compare/a5d83d0cadc2342887a49a01056783698d2aed4f...bbadd6abe559837327b5796e24ccceee032324b6
 - やったこと
   - `TodoBox` のロジックを `useTodo` に移動
+    - `useTodo` は４つの値を返す
+      - `Task[]`: todoのリスト
+      - `AddTaskFunction`: todoを追加するときに使う関数
+      - `RemoveTaskFunction`: todoを削除するときに使う関数
+      - `ToggleCompleteFunction`: todoの完了を切り替えるときに使う関数
   - `TodoItem` は受け取ったものを表示するだけのシンプルなものに変更
     - 削除ボタン/完了ボタン用のハンドラを、ボタンに直接受け渡すように変更した
   - `TodoList` は削除
