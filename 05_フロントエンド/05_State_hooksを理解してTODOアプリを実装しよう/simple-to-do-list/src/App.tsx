@@ -17,7 +17,7 @@ export const App = () => {
 }
 
 //////////////
-// TodoList
+// TodoBox
 //////////////
 
 type TodoBoxProps = {
