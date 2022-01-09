@@ -11,7 +11,7 @@ type AddTodoFunction = (task: TaskValue) => void
 type RemoveTodoFunction = (id: string) => void
 type ToggleCompleteFunction = (id: string) => void
 
-export const useTodo = (init?: Task[]): [Task[], AddTodoFunction, RemoveTodoFunction, ToggleCompleteFunction] => {
+export const useTodo = (init?: Task[]): [readonly Task[], AddTodoFunction, RemoveTodoFunction, ToggleCompleteFunction] => {
   const [tasks, setTasks] = useState<Task[]>(init ?? [])
 
 	const generateId = (): string => {
