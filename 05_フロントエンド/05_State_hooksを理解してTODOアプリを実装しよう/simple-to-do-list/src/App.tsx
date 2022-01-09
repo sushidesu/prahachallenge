@@ -27,7 +27,7 @@ type TodoBoxProps = {
 const TodoBox = (props: TodoBoxProps) => {
   const [tasks, addTodo, removeTodo, toggleComplete] = useTodo(props.tasks)
 
-	const handleNodeRemoval = (nodeId: string) => {
+	const handleRemove = (nodeId: string) => () => {
     removeTodo(nodeId)
 	}
 
@@ -38,7 +38,7 @@ const TodoBox = (props: TodoBoxProps) => {
     })
 	}
 
-	const handleToggleComplete = (nodeId: string) => {
+	const handleToggleComplete = (nodeId: string) => () => {
     toggleComplete(nodeId)
 	}
 
@@ -49,11 +49,10 @@ const TodoBox = (props: TodoBoxProps) => {
         {tasks.map(task => (
           <TodoItem
             key={task.id}
-            nodeId={task.id}
             task={task.task}
             complete={task.complete}
-            removeNode={handleNodeRemoval}
-            toggleComplete={handleToggleComplete}
+            onCompleteClick={handleToggleComplete(task.id)}
+            onRemoveClick={handleRemove(task.id)}
           />
         ))}
       </ul>
@@ -67,38 +66,32 @@ const TodoBox = (props: TodoBoxProps) => {
 //////////////
 
 type TodoItemProps = {
-  nodeId: string
   task: string
   complete: boolean
-  removeNode: (nodeId: string) => void
-  toggleComplete: (nodeId: string) => void
+  onCompleteClick?: React.MouseEventHandler<HTMLButtonElement>
+  onRemoveClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const TodoItem = (props: TodoItemProps) => {
+  const {
+    task,
+    complete,
+    onRemoveClick,
+    onCompleteClick
+  } = props
+
   let classes = 'list-group-item clearfix';
-  if (props.complete) {
+  if (complete) {
     classes = classes + ' list-group-item-success';
   }
 
-	const removeNode: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-		e.preventDefault();
-		props.removeNode(props.nodeId);
-		return;
-	}
-
-	const toggleComplete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-		e.preventDefault();
-		props.toggleComplete(props.nodeId);
-		return;
-	}
-
   return (
     <li className={classes}>
-      {props.task}
+      {task}
       <div className="pull-right" role="group">
-        <button type="button" className="btn btn-xs btn-success img-circle" onClick={toggleComplete}>&#x2713;</button>
+        <button type="button" className="btn btn-xs btn-success img-circle" onClick={onCompleteClick}>&#x2713;</button>
         <span> </span>
-        <button type="button" className="btn btn-xs btn-danger img-circle" onClick={removeNode}>&#xff38;</button>
+        <button type="button" className="btn btn-xs btn-danger img-circle" onClick={onRemoveClick}>&#xff38;</button>
       </div>
     </li>
   );
