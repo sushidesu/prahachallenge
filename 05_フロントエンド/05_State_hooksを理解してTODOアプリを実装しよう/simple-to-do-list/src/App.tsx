@@ -2,10 +2,15 @@ import React, { useState } from "react"
 import { useTodo, Task } from "./useTodo"
 
 export const App = () => {
+  const tasks: Task[] = [
+    {"id":"00001","task":"Wake up","complete":false},
+    {"id":"00002","task":"Eat breakfast","complete":false},
+    {"id":"00003","task":"Go to work","complete":false}
+  ]
   return (
     <section className="container vert-offset-top-2">
       <div className="todoBox col-xs-6 col-xs-offset-3">
-        <TodoBox />
+        <TodoBox tasks={tasks} />
       </div>
     </section>
   )
@@ -15,13 +20,12 @@ export const App = () => {
 // TodoList
 //////////////
 
-const TodoBox = () => {
-  const [tasks, addTodo, removeTodo, toggleComplete] = useTodo([
-    {"id":"00001","task":"Wake up","complete":false},
-    {"id":"00002","task":"Eat breakfast","complete":false},
-    {"id":"00003","task":"Go to work","complete":false}
-  ])
+type TodoBoxProps = {
+  tasks: Task[]
+}
 
+const TodoBox = (props: TodoBoxProps) => {
+  const [tasks, addTodo, removeTodo, toggleComplete] = useTodo(props.tasks)
 
 	const handleNodeRemoval = (nodeId: string) => {
     removeTodo(nodeId)
