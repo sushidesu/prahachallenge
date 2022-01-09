@@ -107,7 +107,7 @@ type TodoFormProps = {
 
 const TodoForm = (props: TodoFormProps) => {
   const [text, setText] = useState("")
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleChange: React.FocusEventHandler<HTMLInputElement> = (e) => {
     setText(e.target.value)
   }
   
@@ -124,7 +124,7 @@ const TodoForm = (props: TodoFormProps) => {
           <div className="form-group">
             <label htmlFor="task" className="col-md-2 control-label">Task</label>
             <div className="col-md-10">
-              <input type="text" id="task" value={text} onChange={handleChange} className="form-control" placeholder="What do you need to do?" />
+              <input type="text" id="task" onBlur={handleChange} className="form-control" placeholder="What do you need to do?" />
             </div>
           </div>
           <div className="row">
