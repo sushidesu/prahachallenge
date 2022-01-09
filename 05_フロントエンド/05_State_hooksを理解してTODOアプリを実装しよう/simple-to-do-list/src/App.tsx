@@ -1,10 +1,5 @@
 import React, { useState } from "react"
-
-type Task = {
-  id: string
-  task: string
-  complete: boolean
-}
+import { useTodo, Task } from "./useTodo"
 
 export const App = () => {
   return (
@@ -21,45 +16,26 @@ export const App = () => {
 //////////////
 
 const TodoBox = () => {
-  const [data, setData] = useState<Task[]>([
+  const [data, addTodo, removeTodo, toggleComplete] = useTodo([
     {"id":"00001","task":"Wake up","complete":false},
     {"id":"00002","task":"Eat breakfast","complete":false},
     {"id":"00003","task":"Go to work","complete":false}
   ])
 
-	const generateId = () => {
-		return Math.floor(Math.random()*90000) + 10000;
-	}
 
 	const handleNodeRemoval = (nodeId: string) => {
-    setData(prev => {
-      const next = [...prev]
-      return next.filter((el) => {
-        return el.id !== nodeId
-      })
-    })
+    removeTodo(nodeId)
 	}
 
 	const handleSubmit = (task: string) => {
-		const id = generateId().toString();
-		const complete = false
-    setData(prev => {
-      return prev.concat({ id, task, complete })
+    addTodo({
+      task,
+      complete: false
     })
 	}
 
 	const handleToggleComplete = (nodeId: string) => {
-    setData(prev => {
-      const next = [...prev]
-      return next.map(task => {
-        if (task.id === nodeId) {
-          const target = {...task}
-          target.complete = !target.complete
-          return target
-        }
-        return task
-      })
-    })
+    toggleComplete(nodeId)
 	}
 
   return (
