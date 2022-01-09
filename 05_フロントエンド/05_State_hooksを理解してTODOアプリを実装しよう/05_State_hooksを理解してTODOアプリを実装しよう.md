@@ -26,7 +26,7 @@ hooksメリット
   - 要素が画面内にあるか判定してくれるhooks
   - 画面内に入ったらふわっと出現させるのようなよくあるアニメーションを実現するときに使ったら便利だった
 - [@sushidesu/use-filter-select - npm](https://www.npmjs.com/package/@sushidesu/use-filter-select)
-  - 他のselectの選択結果を元に他のselectのoptionsをフィルターするを簡単に書くためのhooks
+  - 他のselectの選択結果を元にselectのoptionsをフィルターするを簡単に書くためのhooks
   - もっと汎用的にしたいがTypeScript力が足りない
 
 ## 課題2
