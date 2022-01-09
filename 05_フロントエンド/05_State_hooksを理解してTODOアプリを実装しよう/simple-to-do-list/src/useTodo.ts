@@ -14,13 +14,13 @@ type ToggleCompleteFunction = (id: string) => void
 export const useTodo = (init?: Task[]): [Task[], AddTodoFunction, RemoveTodoFunction, ToggleCompleteFunction] => {
   const [tasks, setTasks] = useState<Task[]>(init ?? [])
 
-	const generateId = () => {
-		return Math.floor(Math.random()*90000) + 10000;
+	const generateId = (): string => {
+		return Math.random().toString(36).slice(-8)
 	}
 
   const addTodo: AddTodoFunction = (task) => {
     setTasks(prev => prev.concat({
-      id: generateId().toString(),
+      id: generateId(),
       ...task
     }))
   }
