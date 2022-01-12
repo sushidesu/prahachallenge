@@ -189,7 +189,14 @@ const BlogPage = (id: string) => {
 
 ### 2
 
-分割する
+organismであるHeaderコンポーネントを presenter/containerに分割しました。
+
+- presenter: [Header.tsx](../landing-page/src/components/organism/Header/Header.tsx)
+- container: [HeaderContainer.tsx](../landing-page/src/components/organism/Header/HeaderContainer.tsx)
+
+しかし、Atomic Designの `page` の役割がコンテンツの流し込みであるから、 template/pageレベルのコンポーネントでしか分割は起こりえない？特定のorganismに対応するcontainerを設けるのはおかしいように感じた。
+
+本来なら page -> template -> organism(Header) のような経路で渡すほうが自然かも？
 
 ## クイズ
 
