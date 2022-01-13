@@ -200,5 +200,97 @@ organismであるHeaderコンポーネントを presenter/containerに分割し�
 
 ## クイズ
 
-- これは動く？ 配列のstate
-- formのstateはどう持つのがよい？
+### クイズ1
+
+`Add Task` ボタンを押したのにも関わらず、 タスクが追加されません。なぜでしょうか？
+
+```tsx
+const Todo = () => {
+  const [tasks, setTasks] = useState<string[]>([])
+
+  const addTask = (task: string) => {
+    setTasks(prev => {
+      prev.push(task)
+      return prev
+    })
+  }
+
+  return (
+    <div>
+      <ul>
+        {tasks.map((task, i) => (
+          <li key={i}>{task}</li>
+        ))}
+      </ul>
+      <button onClick={() => {
+        addTask("hello") // "hello" が追加されるはずなのに、表示が変わらない！
+      }}>Add Task</button>
+    </div>
+  )
+}
+```
+
+<details><summary>回答例</summary>
+
+Reactは `Object.is()` を使用してstateの変更を検知しているので、 `Array.push()` などのオブジェクトの参照が変わらない変更は検知されず、再レンダリングが行われないため。
+
+セット関数(または、セット関数のコールバックから返す値) には、新しいオブジェクトを渡すように修正すると想定通りの動作になる。
+
+正しく動く例
+
+- `setTasks(prev => [...prev, task])`
+- `setTasks(prev => prev.concat(task))`
+
+参考
+
+- [React の state hook で array を更新しても再描画がされない問題 | gotohayato.com](https://gotohayato.com/content/509/)
+- [オブジェクト参照とコピー](https://ja.javascript.info/object-copy)
+
+---
+
+ちなみに、state自体の変更は行われているため、 `addTask()` の後に適当なstateを変更して強制的に再レンダリングを行うと、最新の `tasks` を表示することができる。
+
+動作サンプル: https://codesandbox.io/s/dirty-array-state-mutation-318xr
+</details>
+
+### クイズ2
+
+`Form_1` と `Form_2` ではどちらのstateの使い方が適切でしょうか？
+
+```tsx
+type FormValue = {
+  name: string
+  age: string
+  open: boolean
+}
+
+const Form_1 = () => {
+  const [form, setForm] = useState<FormValue>({
+    name: "",   // ユーザーからの入力を保持する
+    age: "",    // ユーザーからの入力を保持する変数
+    open: false // モーダルフォームの開閉を表す変数
+  })
+}
+
+//////////////////////////////////////
+
+const Form_2 = () => {
+  const [name, setName] = useState<string>("")
+  const [age, setAge] = useState<string>("")
+  const [open, setOpen] = useState<boolean>(false)
+}
+```
+
+<details><summary>回答例</summary>
+
+`Form_2` のほうが適切だと考えられる。
+
+- セット関数がシンプルになる
+  - オブジェクトを管理する場合、プロパティの一部のみ更新するのが少し面倒 (セット関数が複雑になる)
+  - 例: `setForm(prev => ({ ...prev, age: "10" }))`
+- カスタムフックへの抽出がしやすくなる
+
+> どの値が一緒に更新されやすいのかに基づいて、state を複数の state 変数に分割することをお勧めします。
+>
+> [フックに関するよくある質問 – React](https://ja.reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables)
+</details>
