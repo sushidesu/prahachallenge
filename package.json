@@ -17,6 +17,7 @@
   "lint-staged": {
     "05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx}": "yarn --cwd 05_フロントエンド/landing-page eslint --cache --fix",
     "05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx,json,css}": "yarn --cwd 05_フロントエンド/landing-page prettier --write",
-    "05_フロントエンド/landing-page/**/*.css": "yarn --cwd 05_フロントエンド/landing-page stylelint --fix"
+    "05_フロントエンド/landing-page/**/*.css": "yarn --cwd 05_フロントエンド/landing-page stylelint --fix",
+    "05_フロントエンド/04_よくあるボタンコンポーネントを作成する/**/*.{ts,tsx}": "yarn --cwd 05_フロントエンド/04_よくあるボタンコンポーネントを作成する prettier --write"
   }
 }
