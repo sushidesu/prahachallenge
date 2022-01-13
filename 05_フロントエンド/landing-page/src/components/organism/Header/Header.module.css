@@ -16,3 +16,17 @@
 .brand {
   flex: 1 1 auto;
 }
+
+.hamburger {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .links {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

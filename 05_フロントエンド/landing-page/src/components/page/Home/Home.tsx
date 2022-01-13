@@ -9,7 +9,7 @@ const _genPost = (
 ): HomeTemplateProps["posts"][number] => ({
   date: new Date(),
   tag: {
-    name: "Larabel",
+    name: "Laravel",
     link: "",
   },
   title,

@@ -3,3 +3,9 @@
   gap: var(--space-x-md);
   align-items: center;
 }
+
+@media only screen and (max-width: 1000px) {
+  .avatar {
+    display: none;
+  }
+}
