@@ -95,6 +95,8 @@ presentational, container
 /* Container / Presenter  の例 */
 
 const BlogPageContainer = (id: string) => {
+  // post取得、comment取得, いいねボタンクリック時の処理 に強い関連はなく、
+  // 時間的凝集にとどまっている
   const post = postRepository.get(id)
   const [comments, isCommentLoading] = useFetch(() => commentRepository.get(id))
   const handleLike = () => {
@@ -142,11 +144,14 @@ const BlogPageTemplate = (props: BlogPageTemplateProps) => {
 /* こっちの方がいいのでは？ の例 */
 
 const usePost = (id: string) => {
+  // post取得 -> Post表示をまとめている
   const post = postRepository.get(id)
   return () => (<Post post={post} />)
 }
 
 const useComments = (id: string) => {
+  // comment取得 -> Comment表示をまとめている
+  // 取得中の処理や表示についてもhooks内に隠蔽されている
   const [comments, isLoading] = useFetch(() => commentRepository.get(id))
 
   return () => {
