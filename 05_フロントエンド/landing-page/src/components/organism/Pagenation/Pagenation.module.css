@@ -1,0 +1,5 @@
+.wrapper {
+  display: flex;
+  gap: var(--space-x-sm);
+  align-items: center;
+}

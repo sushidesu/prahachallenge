@@ -1,0 +1,26 @@
+.wrapper {
+  height: 100%;
+  background-color: var(--color-base-bg);
+}
+
+.inner {
+  display: flex;
+  height: 100%;
+}
+
+.main {
+  width: calc(8 / 12 * 100%);
+  padding-bottom: 100px;
+  margin-top: var(--space-y-lg);
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side {
+  width: calc(4 / 12 * 100%);
+  margin-top: var(--space-y-lg);
+}

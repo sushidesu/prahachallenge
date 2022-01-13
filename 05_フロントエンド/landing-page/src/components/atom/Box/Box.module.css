@@ -1,0 +1,11 @@
+.wrapper.sm {
+  padding: 0 var(--space-x-sm);
+}
+
+.wrapper.md {
+  padding: 0 var(--space-x-md);
+}
+
+.wrapper.lg {
+  padding: 0 var(--space-x-lg);
+}

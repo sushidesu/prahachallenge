@@ -1,0 +1,18 @@
+.wrapper {
+  position: relative;
+  z-index: var(--index-header);
+  padding: 16px 2px;
+  color: var(--color-text-strong);
+  background-color: #fff;
+  box-shadow: 0 3px 2px rgb(200 200 200 / 50%);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand {
+  flex: 1 1 auto;
+}

@@ -1,0 +1,13 @@
+.dummy {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-base-bg);
+  border-radius: 50%;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}

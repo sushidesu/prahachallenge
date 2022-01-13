@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+}
+
+.wrapper::before {
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 5px;
+  height: 2px;
+  content: "";
+  background-color: var(--color-base);
+  transform: translateY(-50%);
+}
+
+.text {
+  margin-left: 10px;
+  font-weight: bold;
+}
