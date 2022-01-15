@@ -30,7 +30,8 @@ useEffectに渡したコールバック関数は、コンポーネントの **�
 ## 課題3
 
 - `FetchComponent` を作成
-- `useEffect` の第2引数に `[]` を指定して初回のみ通信させる
+- `key` の変更を検知してデータ取得を行うかを判定する
+  - `key` が変わらない限りは再リクエストは行われない
 
 [./use-effect-demo/src/FetchComponent.tsx](./use-effect-demo/src/FetchComponents.tsx)
 

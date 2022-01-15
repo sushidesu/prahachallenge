@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export const FetchComponent = () => {
   // ここでuseEffectを使ってstar数を取得してみましょう!
-  const repoData = useFetch(() => fetchGithubAPI("facebook/react"))
+  const repoData = useFetch("facebook/react", () => fetchGithubAPI("facebook/react"))
 
   return (
     <div>
@@ -40,7 +40,8 @@ type Loadable<T> = {
 /**
  * 非同期なデータを取得するhooks
  */
-function useFetch<T>(fetcher: () => Promise<T>): Loadable<T> {
+function useFetch<T>(key: string, fetcher: () => Promise<T>): Loadable<T> {
+  const cache = useRef<string | undefined>()
   const [data, setData] = useState<Loadable<T>>({ status: "loading" })
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function useFetch<T>(fetcher: () => Promise<T>): Loadable<T> {
     const doFetch = async () => {
       const result = await fetcher()
       // コンポーネントがマウントされている場合のみ、stateを更新する
-      // (存在しないコンポーネントのstateを操作しないように)
+      // (古いコンポーネントのstateを操作しないように)
       if (!unmounted) {
         setData({
           status: 'completed',
@@ -58,13 +59,20 @@ function useFetch<T>(fetcher: () => Promise<T>): Loadable<T> {
         })
       }
     }
-    doFetch()
+
+    if (cache.current === key) {
+      // すでにデータは取得済み
+    } else {
+      // 違うkeyのため再度データ取得を行う
+      cache.current = key
+      doFetch()
+    }
 
     return () => {
       // アンマウントされたことを通知
       unmounted = true
     }
-  }, [])
+  }, [key, fetcher])
 
   return data
 }
