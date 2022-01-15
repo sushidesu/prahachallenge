@@ -46,8 +46,11 @@ function useFetch<T>(fetcher: () => Promise<T>): Loadable<T> {
   useEffect(() => {
     let unmounted = false
 
+    // useEffectの返り値がPromiseにならないように内部にasync関数を作成
     const doFetch = async () => {
       const result = await fetcher()
+      // コンポーネントがマウントされている場合のみ、stateを更新する
+      // (存在しないコンポーネントのstateを操作しないように)
       if (!unmounted) {
         setData({
           status: 'completed',
@@ -58,6 +61,7 @@ function useFetch<T>(fetcher: () => Promise<T>): Loadable<T> {
     doFetch()
 
     return () => {
+      // アンマウントされたことを通知
       unmounted = true
     }
   }, [])
