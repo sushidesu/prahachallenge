@@ -15,7 +15,7 @@ export const SomeComponent = ({ flag }: SomeComponentProps) => {
   //})
   // 無限ループバージョンここまで
 
-  const rendered = useRenderCount()
+  const rendered = useRenderCount(flag)
 
   return (
     <div>
@@ -25,14 +25,16 @@ export const SomeComponent = ({ flag }: SomeComponentProps) => {
   )
 }
 
-const useRenderCount = () => {
+const useRenderCount = (condition: boolean = true) => {
   // count.current の初期値を0にする
   const count = useRef<number>(0)
 
   useEffect(() => {
     // 各レンダリング後にcount.currentを加算
     // 加算の結果は次のレンダリングに使用される
-    count.current += 1
+    if (condition) {
+      count.current += 1
+    }
   })
 
   // 初回レンダリング : 初期値(0) -> レンダリング -> effect(0+1)
