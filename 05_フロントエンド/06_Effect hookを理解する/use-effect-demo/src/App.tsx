@@ -10,6 +10,7 @@ export const App = () => {
       <SomeComponent flag={flag} />
       <hr />
       <FetchComponent />
+      <hr />
       <button onClick={toggle}>Render!</button>
     </div>
   )
