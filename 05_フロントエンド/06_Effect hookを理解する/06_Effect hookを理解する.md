@@ -23,11 +23,15 @@ useEffectに渡したコールバック関数は、コンポーネントの **�
 ## 課題2
 
 - 自身がレンダリングされた回数を表示するコンポーネントを作成
-- someFlagがtrueのときだけ加算？
+- useRefを使用して値を更新してもレンダリングが発生しないようにする
+
+[./use-effect-demo/src/SomeComponents.tsx](./use-effect-demo/src/SomeComponents.tsx)
 
 ## 課題3
 
-- `FetchComponent` を完成させる
-  - 初回のみ通信するように
+- `FetchComponent` を作成
+- `useEffect` の第2引数に `[]` を指定して初回のみ通信させる
+
+[./use-effect-demo/src/FetchComponent.tsx](./use-effect-demo/src/FetchComponents.tsx)
 
 ## 課題4 (クイズ)
