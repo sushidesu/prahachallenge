@@ -36,3 +36,29 @@ useEffectに渡したコールバック関数は、コンポーネントの **�
 [./use-effect-demo/src/FetchComponent.tsx](./use-effect-demo/src/FetchComponents.tsx)
 
 ## 課題4 (クイズ)
+
+### クイズ1
+
+1秒ごとに加算される数字を表示する `Timer` コンポーネントを作成してください。
+
+<details><summary>回答例</summary>
+
+`setInterval` を使用して、1秒ごとにstateを更新する。
+
+```tsx
+const Timer = () => {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(prev => prev + 1)
+    }, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
+  return <p>{count}</p>
+}
+```
+</details>
