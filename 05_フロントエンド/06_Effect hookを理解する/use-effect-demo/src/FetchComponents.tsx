@@ -107,6 +107,7 @@ function useFetch<T>(key: string, fetcher: () => Promise<T>): Loadable<T> {
     }
 
     if (data.status === "loading") {
+      // データの取得とkeyの更新を行う
       cache.current = key
       console.log("fetch")
       doFetch()
