@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <div>
-          <p>hello</p>
+          <p>CSR</p>
           {repoData.status === "loading"
             ? <p>loading...</p>
             : <Summary name={repoData.value.full_name} stars={repoData.value.stargazers_count} />
