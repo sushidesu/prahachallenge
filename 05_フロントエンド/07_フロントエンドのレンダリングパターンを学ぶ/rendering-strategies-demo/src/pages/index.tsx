@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { getRepoData } from "../lib/github-api-client"
 import { useFetchOnce } from "../lib/useFetchOnce"
+import { Summary } from "../components/Summary"
 
 const Home: NextPage = () => {
   const repoData = useFetchOnce(() => getRepoData("facebook/react"))
@@ -17,12 +18,7 @@ const Home: NextPage = () => {
           <p>hello</p>
           {repoData.status === "loading"
             ? <p>loading...</p>
-            : (
-              <div>
-                <p>{`name: ${repoData.value.full_name}`}</p>
-                <p>{`stars: ${repoData.value.stargazers_count}`}</p>
-              </div>
-            )
+            : <Summary name={repoData.value.full_name} stars={repoData.value.stargazers_count} />
           }
         </div>
       </main>
