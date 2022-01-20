@@ -110,6 +110,8 @@
 
 [pre-commit-demo](./pre-commit-demo/package.json)にpre-commit hookを導入した。
 
+無限ループする[間違ったfor文](./pre-commit-demo/src/sample.ts)を書くと、無事コミットがキャンセルされた。
+
 ```sh
 ~/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを使おう/pre-commit-demo task/team_lint*
 ❯ git c
