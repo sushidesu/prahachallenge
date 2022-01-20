@@ -32,8 +32,8 @@
 
 重要なルール
 
-- typescriptで検知できなさそうなやつを選んだ
-- 意外と非recommendedに良いルールが多かった
+- typescriptで検知できなさそうなものを選んだ
+- 意外と非recommendedに良いルールが多かった！
 - [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
   - `Array.map` や `Array.filter` などの配列メソッドのコールバック内ではreturnしないのはおかしい
     - forEachを使うべき
@@ -62,7 +62,47 @@
 
 ### 3
 
-airbnbのルールでlintをかける
+[dddの課題](https://github.com/sushidesu/prahachallenge-ddd)のプロジェクトにairbnbのルールでlintをかけてみたところ、たくさんの問題が見つかった :cry:
+
+```sh
+...
+/Users/.../praha-challenge/prahachallenge-ddd/src/usecase/team/move-pair-to-another-team-usecase.ts
+  1:1  error  Prefer default export                              import/prefer-default-export
+  5:7  error  Expected 'this' to be used by class method 'exec'  class-methods-use-this
+
+✖ 534 problems (532 errors, 2 warnings)
+  46 errors and 0 warnings potentially fixable with the `--fix` option.
+```
+
+エラーの内訳は以下
+
+- 264 `import/extension`
+  - importのときは拡張子をつけよう！ (`import/extensions`)
+- 111 `camelcase`
+  - キャメルケースを使おう！
+  - テスト用データの定義に `p_01`, `p_02` などを使用していたため、警告が多い
+- 39 `import/prefer-default-export`
+  - なるべくdefault exportを使おう！
+  - 個人的にはnamed export好きなので、このルールは採用しないかも
+- 29 `lines-between-class-members`
+  - クラスメンバの間には空行を開けよう
+  - これはPrettierではできない？見やすくなりそうなので採用したいかも
+- 24 + 14 `no-useless-constructor`, `no-empty-function`
+  - 空のコンストラクタは不要だよ！
+  - typescriptの機能([引数プロパティ宣言](https://future-architect.github.io/typescript-guide/class.html#id4))を使っているため、実際には空ではない
+- 17 `class-methods-use-this`
+  - クラスのメソッドは `this` を使っていないとおかしい！
+  - 使わないならスタティックメソッドにすべき！
+  - 仕様整理のために空のユースケースを多数作っていたため、引っかかった
+- 36 その他
+  - `no-console`
+  - `object-shorthand`
+    - `{ name: name }` は `{ name }` でいいよ！
+    - 統一されるので良さそう
+  - `import/no-useless-path-segments`
+  - `arrow-body-style`
+  - `no-else-return`
+  - など
 
 ## 課題2
 
