@@ -140,5 +140,7 @@ $ /Users/pppark/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを
 
 ### 2
 
-- ローカルのpre-commitの問題
-- 止めることができる
+ローカルのpre-commitの問題
+
+- こっそり止めることができるので、確実に品質を保証できない
+- くらいしか思いつかなかった
