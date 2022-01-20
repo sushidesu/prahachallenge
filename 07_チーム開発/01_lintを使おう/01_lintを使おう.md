@@ -32,7 +32,33 @@
 
 重要なルール
 
-1. うーむ
+- typescriptで検知できなさそうなやつを選んだ
+- 意外と非recommendedに良いルールが多かった
+- [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
+  - `Array.map` や `Array.filter` などの配列メソッドのコールバック内ではreturnしないのはおかしい
+    - forEachを使うべき
+  - 意図が読みやすくなるのでよさそう
+- [no-await-in-loop](https://eslint.org/docs/rules/no-await-in-loop)
+  - loop中にawaitするのはおかしい
+  - 慣れていないと書いてしまいそう、パフォーマンスの劣化を未然に防げる
+- [sort-imports](https://eslint.org/docs/rules/sort-imports)
+  - importの並び替え
+  - 便利！
+  - [import-js/eslint-plugin-import](https://github.com/import-js/eslint-plugin-import) と組み合わせるとより便利
+- [prefer-const](https://eslint.org/docs/rules/prefer-const)
+  - 再代入されないものには `const` を使おう
+  - 当たり前だけど、当たり前だからこそeslintでも担保するとよさそう
+- [no-useless-return](https://eslint.org/docs/rules/no-useless-return)
+  - 冗長なリターンをやめよう
+  - 冗長な記述がなくなりコードが読みやすくなる
+- [no-nested-ternary](https://eslint.org/docs/rules/no-nested-ternary)
+  - ネストした三項演算子はやめよう
+  - ついやりがちなので入れたい
+- [no-negated-condition](https://eslint.org/docs/rules/no-negated-condition)
+  - 否定条件を前に持ってくるのはやめよう
+    - 例: `if (!condition) {} else {}`
+    - elseがない場合は問題ない: `if (!condition) {}`
+  - あまり意識したことはなかった。コードが読みやすくなりそう
 
 ### 3
 
