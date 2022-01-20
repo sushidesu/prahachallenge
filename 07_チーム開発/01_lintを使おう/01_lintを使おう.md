@@ -108,7 +108,35 @@
 
 ### 1
 
-pre-commit hookを導入
+[pre-commit-demo](./pre-commit-demo/package.json)にpre-commit hookを導入した。
+
+```sh
+~/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを使おう/pre-commit-demo task/team_lint*
+❯ git c
+yarn run v1.22.17
+$ /Users/pppark/dev/praha-challenge/prahachallenge/node_modules/.bin/lint-staged
+✔ Preparing...
+⚠ Running tasks...
+  ↓ No staged files match 05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx} [SKIPPED]
+  ↓ No staged files match 05_フロントエンド/landing-page/**/*.{js,ts,jsx,tsx,json,css} [SKIPPED]
+  ↓ No staged files match 05_フロントエンド/landing-page/**/*.css [SKIPPED]
+  ↓ No staged files match 05_フロントエンド/04_よくあるボタンコンポーネントを作成する/**/*.{ts,tsx} [SKIPPED]
+  ❯ Running tasks for 07_チーム開発/01_lintを使おう/pre-commit-demo/**/*.ts
+    ✖ yarn --cwd 07_チーム開発/01_lintを使おう/pre-commit-demo eslint [FAILED]
+↓ Skipped because of errors from tasks. [SKIPPED]
+✔ Reverting to original state because of errors...
+✔ Cleaning up...
+
+✖ yarn --cwd 07_チーム開発/01_lintを使おう/pre-commit-demo eslint:
+error Command failed with exit code 1.
+$ /Users/pppark/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを使おう/pre-commit-demo/node_modules/.bin/eslint /Users/pppark/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを使おう/pre-commit-demo/src/sample.ts
+
+/Users/pppark/dev/praha-challenge/prahachallenge/07_チーム開発/01_lintを使おう/pre-commit-demo/src/sample.ts
+  4:3  error  The update clause in this loop moves the variable in the wrong direction  for-direction
+
+✖ 1 problem (1 error, 0 warnings)
+
+```
 
 ### 2
 
