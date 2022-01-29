@@ -1,0 +1,49 @@
+name: Integration Test
+on: pull_request
+jobs:
+  Integration-Test-Job:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    # container-job
+    # 参考: https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: prisma2020
+          POSTGRES_DB: prisma
+          POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+          TZ: "Asia/Tokyo"
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # サービスコンテナの tcp ポート 5432 をホストにマップする
+          - 5401:5432
+
+    steps:
+      # ブランチ移動
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      # Nodeを準備
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          # 依存関係のキャッシュを有効化 (https://github.com/actions/setup-node#caching-packages-dependencies)
+          cache: yarn
+      # yarn install
+      - name: Install dependencies
+        run: yarn
+      # run integration test
+      - name: Run Integration Test
+        run: yarn test:integration

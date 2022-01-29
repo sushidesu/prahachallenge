@@ -1,0 +1,10 @@
+name: Run From Repository Dispatch
+on: repository_dispatch
+jobs:
+  Repository-Dispatch-Test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      # 参考: https://goobar.dev/manually-trigger-a-github-actions-workflow/
+      - name: Echo Payload
+        run: 'echo "Hello: ${{ github.event.client_payload.text }}"'
