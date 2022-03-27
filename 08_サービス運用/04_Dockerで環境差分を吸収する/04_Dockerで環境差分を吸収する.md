@@ -129,15 +129,12 @@ Dockerイメージの内容を記述するファイル。使用できるコマ�
 
 - `FROM`: 親イメージ/ベースイメージを設定する
 - `RUN`: 新たなレイヤー上でコマンドを実行し、結果をコミットする
-  - レイヤー: hoge
-  - コミット: hoge
 - `CMD`: 実行中のコンテナにデフォルトを提供する
 - `LABEL`: イメージにメタデータを付与する
 - `ENV`: 環境変数を設定する
 - `ADD`: ファイルやディレクトリ、リモートファイルをイメージ内にコピーする
 - `COPY`: ファイルやディレクトリをコンテナ内に追加する
 - `ENTRYPOINT`: 実行可能ファイルとして実行されるコンテナとして設定する
-- `VOLUME`: hoge
 
 #### 環境構築をコード化するメリット
 
@@ -216,7 +213,56 @@ Dockerfile内の他の命令からも環境変数が使用できる。複数命�
 
 ## 課題2 (実装)
 
-- 特大課題のアプリケーションをDocker化する
-  - `docker run && docker start` でアプリが起動するようなDockerfileを作成
-  - `docker-compose.yml` を作成
-  - どちらも `curl` でリクエストを送って動作確認
+### `docker run && docker start` でアプリが起動するようなDockerfileを作成
+
+[Dockerfile](./Dockerfile)
+
+
+アプリの起動はできた。
+
+```sh
+~/dev/prahachallenge-ddd task/docker*
+❯ curl http://localhost:8000
+hello
+```
+
+しかし、Dockerで起動したコンテナとdocker-composeで起動したDBを接続する方法がわからず。(Dockerできどうしたアプリ側のエラー)。networkを設定すれば良さそうだが時間切れ。
+
+```sh
+  Can't reach database server at `localhost`:`5400`
+
+Please make sure your database server is running at `localhost`:`5400`.
+    at Object.request (/dist/main.js:356:361)
+    at async t._request (/dist/main.js:373:1508)
+    at async So.query (/dist/main.js:374:171179)
+    at async bo.exec (/dist/main.js:374:166075)
+    at async getPairList (/dist/main.js:374:165218) {
+  clientVersion: '3.11.1',
+  errorCode: undefined
+}
+
+```
+
+### `docker-compose.yml` を作成
+
+[docker-compose.yml](./docker-compose.yml)
+
+こちらもアプリの起動はできたがDBとの通信ができてないもよう。
+
+```sh
+~/dev/prahachallenge-ddd task/docker* 21s
+❯ curl http://localhost:8000     
+hello
+~/dev/prahachallenge-ddd task/docker*
+❯ curl http://localhost:8000/pair
+
+```
+
+### 補足
+
+該当PR: https://github.com/sushidesu/prahachallenge-ddd/pull/23
+
+### 参考にしたリンク
+
+- [最小のNode.jsのDockerイメージを目指すスレ - Qiita](https://qiita.com/shibukawa/items/f7076cf4b181ee141bcd)
+  - 例が簡潔でわかりやすかった
