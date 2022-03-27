@@ -24,7 +24,7 @@ Dockerコンテナを作成するための手順が記載された読み取り�
 >
 > [Docker overview | Docker Documentation](https://docs.docker.com/get-started/overview/)
 
-Dockerfileに。Dockerfileに記述された各命令は `レイヤー` としてビルドされる、Dockerfileに変更があった場合、変更されたレイヤーのみがビルドされる。(そのため、軽量で速い)
+Dockerfileに記述された各命令は `レイヤー` としてビルドされる、Dockerfileに変更があった場合、変更されたレイヤーのみがビルドされる。(そのため、軽量で速い)
 
 #### コンテナ
 
@@ -129,12 +129,11 @@ Dockerイメージの内容を記述するファイル。使用できるコマ�
 
 - `FROM`: 親イメージ/ベースイメージを設定する
 - `RUN`: 新たなレイヤー上でコマンドを実行し、結果をコミットする
-- `CMD`: 実行中のコンテナにデフォルトを提供する
+- `CMD`: 実行中のコンテナにデフォルトのコマンドを提供する
 - `LABEL`: イメージにメタデータを付与する
 - `ENV`: 環境変数を設定する
 - `ADD`: ファイルやディレクトリ、リモートファイルをイメージ内にコピーする
 - `COPY`: ファイルやディレクトリをコンテナ内に追加する
-- `ENTRYPOINT`: 実行可能ファイルとして実行されるコンテナとして設定する
 
 #### 環境構築をコード化するメリット
 
@@ -226,7 +225,7 @@ Dockerfile内の他の命令からも環境変数が使用できる。複数命�
 hello
 ```
 
-しかし、Dockerで起動したコンテナとdocker-composeで起動したDBを接続する方法がわからず。(Dockerできどうしたアプリ側のエラー)。networkを設定すれば良さそうだが時間切れ。
+しかし、Dockerで起動したコンテナとdocker-composeで起動したDBを接続する方法がわからず。(Dockerで起動したアプリ側のエラー)。networkを設定すれば良さそうだが時間切れ。
 
 ```sh
   Can't reach database server at `localhost`:`5400`
@@ -247,7 +246,7 @@ Please make sure your database server is running at `localhost`:`5400`.
 
 [docker-compose.yml](./docker-compose.yml)
 
-こちらもアプリの起動はできたがDBとの通信ができてないもよう。
+こちらもアプリの起動はできたがDBとの通信ができていない模様。
 
 ```sh
 ~/dev/prahachallenge-ddd task/docker* 21s
