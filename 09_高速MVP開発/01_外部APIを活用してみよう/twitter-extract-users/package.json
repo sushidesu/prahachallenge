@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/main.ts --bundle --platform=node --outdir=dist",
-    "start": "node dist/main.js"
+    "start": "node --experimental-fetch dist/main.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",
