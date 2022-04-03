@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import { program } from "commander"
+import { z } from "zod"
 import { TwitterClient } from "./client/twitter-client"
-import { ExtractUsersByFollowing } from "./usecase/extract-users-by-following"
+import { ExtractFollowersByUserId } from "./usecase/extract-followers-by-user-id"
+import { ExtractFollowersByUsername } from "./usecase/extract-followers-by-username"
 import { ExtractUsersByText } from "./usecase/extract-users-by-text"
 import { UserDTO } from "./usecase/user-dto"
 
@@ -33,18 +35,29 @@ const main = () => {
   program
     .command("following")
     .description("extract users who are following a specific user")
-    .argument("<userId>", "user id for query")
+    .option("-u,--username <username>", "query by username")
+    .option("-i,--id <userId>", "query by userId")
     .action(async (arg) => {
-      if (!isString(arg)) {
-        console.log("<userId> is required")
-        return
-      }
+      const parsed = userOptionScheme.parse(arg)
       const twitterClient = new TwitterClient()
-      const extractByFollowing = new ExtractUsersByFollowing(twitterClient)
 
-      console.log(`users who following ${arg}:`)
-      const result = await extractByFollowing.exec(arg)
-      console.log(format(result))
+      if (parsed.id !== undefined) {
+        const extractFollowersByUserId = new ExtractFollowersByUserId(
+          twitterClient
+        )
+        const result = await extractFollowersByUserId.exec(parsed.id)
+
+        console.log(`users who following ${parsed.id}:`)
+        console.log(format(result))
+      } else if (parsed.username !== undefined) {
+        const extractFollowersByUsername = new ExtractFollowersByUsername(
+          twitterClient
+        )
+        const result = await extractFollowersByUsername.exec(parsed.username)
+
+        console.log(`users who following @${parsed.username}:`)
+        console.log(format(result))
+      }
     })
 
   program.parse()
@@ -57,5 +70,10 @@ const format = (users: UserDTO[]): string => {
 const isString = (value: unknown): value is string => {
   return typeof value === "string"
 }
+
+const userOptionScheme = z.object({
+  id: z.string().nonempty().optional(),
+  username: z.string().nonempty().optional(),
+})
 
 main()
