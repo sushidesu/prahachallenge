@@ -1,7 +1,10 @@
 import "dotenv/config"
 import { ITwitterClient } from "../domain/twitter-user/twitter-client-interface"
 import { TwitterUser } from "../domain/twitter-user/twitter-user"
-import { twitterRecentTweetsResponseScheme } from "./twitter-api-response-scheme"
+import {
+  twitterRecentTweetsResponseScheme,
+  twitterUsersResponseScheme,
+} from "./twitter-api-response-scheme"
 
 export class TwitterClient implements ITwitterClient {
   private readonly token: string
@@ -39,13 +42,19 @@ export class TwitterClient implements ITwitterClient {
   }
 
   async getUsersByFollowing(followingUserId: string): Promise<TwitterUser[]> {
-    console.info(`TwitterClient.getUsersByFollowing()`, followingUserId)
-    return [
-      {
-        id: "test-user",
-        name: "test",
-        username: "tteesstt",
+    const url = `${this.API_ORIGIN}/users/${followingUserId}/followers`
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
       },
-    ]
+    })
+    const result = await response.json()
+    const parsed = twitterUsersResponseScheme.parse(result)
+
+    return parsed.data.map((u) => ({
+      id: u.id,
+      name: u.name,
+      username: u.username,
+    }))
   }
 }
