@@ -3,6 +3,7 @@ import { ITwitterClient } from "../domain/twitter-user/twitter-client-interface"
 import { TwitterUser } from "../domain/twitter-user/twitter-user"
 import {
   twitterRecentTweetsResponseScheme,
+  twitterUsersByResponseScheme,
   twitterUsersResponseScheme,
 } from "./twitter-api-response-scheme"
 
@@ -20,8 +21,22 @@ export class TwitterClient implements ITwitterClient {
   }
 
   async getUserByUsername(username: string): Promise<TwitterUser | undefined> {
-    console.log(username)
-    return undefined
+    const url = `${this.API_ORIGIN}/users/by/username/${username}`
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+    const result = await response.json()
+    const parsed = twitterUsersByResponseScheme.parse(result)
+
+    return parsed.data === undefined
+      ? undefined
+      : {
+          id: parsed.data.id,
+          name: parsed.data.name,
+          username: parsed.data.username,
+        }
   }
 
   async getUsersByTweet(text: string): Promise<TwitterUser[]> {

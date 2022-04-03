@@ -22,3 +22,7 @@ export const twitterRecentTweetsResponseScheme = z.object({
 export const twitterUsersResponseScheme = z.object({
   data: z.array(twitterUserScheme),
 })
+
+export const twitterUsersByResponseScheme = z.object({
+  data: twitterUserScheme.optional(),
+})
