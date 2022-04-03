@@ -6,6 +6,8 @@ const twitterUserScheme = z.object({
   username: z.string().nonempty(),
 })
 
+export type TwitterUserScheme = z.infer<typeof twitterUserScheme>
+
 const tweetScheme = z.object({
   author_id: z.string().nonempty(),
   id: z.string().nonempty(),

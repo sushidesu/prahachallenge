@@ -4,6 +4,7 @@ import { TwitterUser } from "../domain/twitter-user/twitter-user"
 import {
   twitterRecentTweetsResponseScheme,
   twitterUsersByResponseScheme,
+  TwitterUserScheme,
   twitterUsersResponseScheme,
 } from "./twitter-api-response-scheme"
 
@@ -30,13 +31,7 @@ export class TwitterClient implements ITwitterClient {
     const result = await response.json()
     const parsed = twitterUsersByResponseScheme.parse(result)
 
-    return parsed.data === undefined
-      ? undefined
-      : {
-          id: parsed.data.id,
-          name: parsed.data.name,
-          username: parsed.data.username,
-        }
+    return parsed.data === undefined ? undefined : this.convertUser(parsed.data)
   }
 
   async getUsersByTweet(text: string): Promise<TwitterUser[]> {
@@ -54,11 +49,7 @@ export class TwitterClient implements ITwitterClient {
     const result = await response.json()
     const parsed = twitterRecentTweetsResponseScheme.parse(result)
 
-    return parsed.includes.users.map((u) => ({
-      id: u.id,
-      name: u.name,
-      username: u.username,
-    }))
+    return parsed.includes.users.map((u) => this.convertUser(u))
   }
 
   async getUsersByFollowing(followingUserId: string): Promise<TwitterUser[]> {
@@ -71,10 +62,14 @@ export class TwitterClient implements ITwitterClient {
     const result = await response.json()
     const parsed = twitterUsersResponseScheme.parse(result)
 
-    return parsed.data.map((u) => ({
-      id: u.id,
-      name: u.name,
-      username: u.username,
-    }))
+    return parsed.data.map((u) => this.convertUser(u))
+  }
+
+  private convertUser(value: TwitterUserScheme): TwitterUser {
+    return {
+      id: value.id,
+      name: value.name,
+      username: value.username,
+    }
   }
 }
