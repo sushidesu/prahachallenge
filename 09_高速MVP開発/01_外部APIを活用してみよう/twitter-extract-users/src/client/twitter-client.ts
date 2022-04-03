@@ -19,6 +19,11 @@ export class TwitterClient implements ITwitterClient {
     this.token = token
   }
 
+  async getUserByUsername(username: string): Promise<TwitterUser | undefined> {
+    console.log(username)
+    return undefined
+  }
+
   async getUsersByTweet(text: string): Promise<TwitterUser[]> {
     const query = new URLSearchParams({
       query: text,
