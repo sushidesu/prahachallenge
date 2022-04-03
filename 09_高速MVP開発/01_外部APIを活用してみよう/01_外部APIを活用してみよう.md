@@ -18,6 +18,35 @@ yarn start following --id <ユーザーID>
 yarn start following --username <ユーザーネーム>
 ```
 
+### 実行結果
+
+```sh
+❯ yarn start text "プラハチャレンジ"                  
+yarn run v1.22.18
+$ node --experimental-fetch dist/main.js text プラハチャレンジ
+users who tweeted プラハチャレンジ:
+(node:147559) ExperimentalWarning: Fetch is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+みんみん (@minmin_memo)
+dowanna @PrAha Inc. CEO兼エンジニア (@dowanna6)
+(node:147559) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+Done in 0.60s.
+```
+
+```sh
+❯ yarn start following -u "_sushidesu"
+yarn run v1.22.18
+$ node --experimental-fetch dist/main.js following -u _sushidesu
+(node:147892) ExperimentalWarning: Fetch is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:147892) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+users who following @_sushidesu:
+Kyosuke (@wooootack)
+ゲントク (@gn_t_k)
+yurika@サウナー (@hbaaTmXufwGiOh3)
+...(略)
+```
+
 ### 補足情報
 
 - オニオンアーキテクチャっぽく書いた
