@@ -1,7 +1,7 @@
 import { ITwitterClient } from "../domain/twitter-user/twitter-client-interface"
 import { UserDTO } from "./user-dto"
 
-export class ExtractUsersByFollowing {
+export class ExtractFollowersByUserId {
   constructor(private readonly twitterClient: ITwitterClient) {}
 
   async exec(userId: string): Promise<UserDTO[]> {
