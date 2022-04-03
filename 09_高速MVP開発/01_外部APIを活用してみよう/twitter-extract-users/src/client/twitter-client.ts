@@ -39,6 +39,7 @@ export class TwitterClient implements ITwitterClient {
       query: text,
       expansions: "author_id",
       "user.fields": "id,name,username",
+      max_results: "100", // 引数で指定できるようにしたい
     })
     const url = `${this.API_ORIGIN}/tweets/search/recent?${query.toString()}`
     const response = await fetch(url, {
@@ -53,7 +54,12 @@ export class TwitterClient implements ITwitterClient {
   }
 
   async getUsersByFollowing(followingUserId: string): Promise<TwitterUser[]> {
-    const url = `${this.API_ORIGIN}/users/${followingUserId}/followers`
+    const query = new URLSearchParams({
+      max_results: "100", // 引数で指定できるようにしたい
+    })
+    const url = `${
+      this.API_ORIGIN
+    }/users/${followingUserId}/followers?${query.toString()}`
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${this.token}`,
