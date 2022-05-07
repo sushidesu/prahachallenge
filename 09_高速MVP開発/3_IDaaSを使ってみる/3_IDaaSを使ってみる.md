@@ -1,4 +1,4 @@
-# FIrebase Authentication（IDaaS）を使ってみる
+# Firebase Authentication（IDaaS）を使ってみる
 
 ## 課題1 (実装)
 
