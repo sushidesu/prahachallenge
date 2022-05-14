@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  prisma-db:
+    container_name: prisma-db
+    image: postgres:13
+    ports:
+      - "5400:5432"
+    volumes:
+      - prisma-store:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: prisma2020
+      POSTGRES_DB: prisma
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      TZ: "Asia/Tokyo"
+  prisma-test-db:
+    container_name: prisma-test-db
+    image: postgres:13
+    ports:
+      - "5401:5432"
+    volumes:
+      - prisma-test-store:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: prisma2020
+      POSTGRES_DB: prisma
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      TZ: "Asia/Tokyo"
+  app:
+    container_name: ddd-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+volumes:
+  prisma-store:
+    driver: local
+  prisma-test-store:
+    driver: local
