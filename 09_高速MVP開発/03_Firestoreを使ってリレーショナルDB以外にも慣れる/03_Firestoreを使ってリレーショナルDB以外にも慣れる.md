@@ -19,13 +19,17 @@
 
 この手順で設計する
 
-1. モデリング
+#### 1. モデリング
+
+![diagram1](./images/diagram1.svg)
+
+<details><summary>ER図コード</summary>
 
 ```plantuml
 entity Task {
   + id: string
   --
-  name: string
+  title: string
 }
 
 entity User {
@@ -41,6 +45,8 @@ entity TaskStatus {
 }
 
 entity ChangeTaskStatus {
+  + id: string
+  --
   taskId: string
   taskStatusId: string
   userId: string
@@ -50,8 +56,9 @@ Task ||--o{ ChangeTaskStatus
 ChangeTaskStatus||--o{ User
 ChangeTaskStatus ||-o{ TaskStatus
 ```
+</details>
 
-2. Read Light / Write Heavy を考える
+#### 2. Read Light / Write Heavy を考える
 
 Airtableのように、タスク一覧+ユーザーごとのタスクステータスをReadしやすいようにする
 
@@ -68,8 +75,12 @@ Airtableのように、タスク一覧+ユーザーごとのタスクステー�
 
 `TaskStatusList` では、タスクごとにユーザーの情報・ステータスの情報を非正規化して保持している。
 
+![diagram2](./images/diagram2.svg)
+
+<details><summary>ER図コード</summary>
+
 ```plantuml
-entity TaskStatusList {
+entity TaskStatusTable {
   + id: string
   --
   taskId: string
@@ -82,10 +93,10 @@ entity TaskStatusList {
 entity Task {
   + id: string
   --
-  name: string
+  title: string
 }
 
-Task ||-|| TaskStatusList
+Task ||-|| TaskStatusTable
 
 entity User {
   + id: string
@@ -100,6 +111,8 @@ entity TaskStatus {
 }
 
 entity ChangeTaskStatus {
+  + id: string
+  --
   taskId: string
   taskStatusId: string
   userId: string
@@ -109,9 +122,29 @@ Task ||--o{ ChangeTaskStatus
 ChangeTaskStatus||--o{ User
 ChangeTaskStatus ||-o{ TaskStatus
 ```
-
+</details>
 
 ### 初期データ投入
+
+[./initData.ts](./initData.ts) で投入した
+
+#### 実行コマンド
+
+```sh
+$ deno run --allow-env --allow-read --allow-net initData.ts
+```
+
+#### 実行結果
+
+ユーザーが3人以上登録されている
+
+![users](./images/users.png)
+
+1人のユーザーにつき3個の課題が「完了」か「未完了」の状態で紐づけられている (画像は `users/DKVoow7fAf0GOZKjD3Dw` のユーザー)
+
+![task1](./images/task1.png)
+![task2](./images/task2.png)
+![task3](./images/task3.png)
 
 ## 課題2 (実装)
 

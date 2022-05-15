@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" contentscripttype="application/ecmascript" contentstyletype="text/css" height="388px" preserveAspectRatio="none" style="width:287px;height:388px;background:#FFFFFF;" version="1.1" viewBox="0 0 287 388" width="287px" zoomAndPan="magnify"><defs><filter height="300%" id="f19uhbfqjb3k46" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><!--MD5=[b34797a66dc35cbf1d65f7e3ca75530e]
+class Task--><rect codeline="1" fill="#FEFECE" filter="url(#f19uhbfqjb3k46)" height="73.9102" id="Task" style="stroke:#A80036;stroke-width:1.5;" width="74" x="38.5" y="7"></rect><ellipse cx="59.8" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"></ellipse><path d="M63.4143,29.5 L55.6945,29.5 L55.6945,17.1069 L63.4143,17.1069 L63.4143,19.2651 L58.1433,19.2651 L58.1433,21.938 L62.9162,21.938 L62.9162,24.0962 L58.1433,24.0962 L58.1433,27.3418 L63.4143,27.3418 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="28" x="75.2" y="27.5352">Task</text><line style="stroke:#A80036;stroke-width:1.5;" x1="39.5" x2="111.5" y1="39" y2="39"></line><ellipse cx="49.5" cy="50" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="58.5" y="53.6348">id: string</text><line style="stroke:#A80036;stroke-width:1.0;" x1="39.5" x2="111.5" y1="59.9551" y2="59.9551"></line><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="58" x="44.5" y="74.5898">title: string</text><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
+class User--><rect codeline="7" fill="#FEFECE" filter="url(#f19uhbfqjb3k46)" height="73.9102" id="User" style="stroke:#A80036;stroke-width:1.5;" width="79" x="36" y="301"></rect><ellipse cx="60.45" cy="317" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"></ellipse><path d="M64.0643,323.5 L56.3445,323.5 L56.3445,311.1069 L64.0643,311.1069 L64.0643,313.2651 L58.7933,313.2651 L58.7933,315.938 L63.5662,315.938 L63.5662,318.0962 L58.7933,318.0962 L58.7933,321.3418 L64.0643,321.3418 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="26" x="76.55" y="321.5352">User</text><line style="stroke:#A80036;stroke-width:1.5;" x1="37" x2="114" y1="333" y2="333"></line><ellipse cx="47" cy="344" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="56" y="347.6348">id: string</text><line style="stroke:#A80036;stroke-width:1.0;" x1="37" x2="114" y1="353.9551" y2="353.9551"></line><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="42" y="368.5898">name: string</text><!--MD5=[007b513da6771087a86fbb3bd355c48d]
+class TaskStatus--><rect codeline="13" fill="#FEFECE" filter="url(#f19uhbfqjb3k46)" height="73.9102" id="TaskStatus" style="stroke:#A80036;stroke-width:1.5;" width="94" x="179.5" y="154"></rect><ellipse cx="194.5" cy="170" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"></ellipse><path d="M198.1143,176.5 L190.3945,176.5 L190.3945,164.1069 L198.1143,164.1069 L198.1143,166.2651 L192.8433,166.2651 L192.8433,168.938 L197.6162,168.938 L197.6162,171.0962 L192.8433,171.0962 L192.8433,174.3418 L198.1143,174.3418 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="62" x="208.5" y="174.5352">TaskStatus</text><line style="stroke:#A80036;stroke-width:1.5;" x1="180.5" x2="272.5" y1="186" y2="186"></line><ellipse cx="190.5" cy="197" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="199.5" y="200.6348">id: string</text><line style="stroke:#A80036;stroke-width:1.0;" x1="180.5" x2="272.5" y1="206.9551" y2="206.9551"></line><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="185.5" y="221.5898">name: string</text><!--MD5=[249cbae071fadacce1ab1ebf320aa267]
+class ChangeTaskStatus--><rect codeline="19" fill="#FEFECE" filter="url(#f19uhbfqjb3k46)" height="99.8203" id="ChangeTaskStatus" style="stroke:#A80036;stroke-width:1.5;" width="137" x="7" y="141"></rect><ellipse cx="22" cy="157" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"></ellipse><path d="M25.6143,163.5 L17.8945,163.5 L17.8945,151.1069 L25.6143,151.1069 L25.6143,153.2651 L20.3433,153.2651 L20.3433,155.938 L25.1162,155.938 L25.1162,158.0962 L20.3433,158.0962 L20.3433,161.3418 L25.6143,161.3418 Z " fill="#000000"></path><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="105" x="36" y="161.5352">ChangeTaskStatus</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="143" y1="173" y2="173"></line><ellipse cx="18" cy="184" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"></ellipse><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="27" y="187.6348">id: string</text><line style="stroke:#A80036;stroke-width:1.0;" x1="8" x2="143" y1="193.9551" y2="193.9551"></line><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="13" y="208.5898">taskId: string</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="103" x="13" y="221.5449">taskStatusId: string</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="72" x="13" y="234.5">userId: string</text><!--MD5=[f276286a1bf07b1b36e6ec52257a876f]
+link Task to ChangeTaskStatus--><path codeline="27" d="M75.5,89.49 C75.5,103.08 75.5,118.22 75.5,132.54 " fill="none" id="Task-ChangeTaskStatus" style="stroke:#A80036;stroke-width:1.0;"></path><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="81.5" y1="132.86" y2="140.86"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="69.5" y1="132.86" y2="140.86"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="75.5" y1="132.86" y2="140.86"></line><ellipse cx="75.5" cy="126.86" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.0;fill:none;"></ellipse><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="71.5" x2="79.5" y1="85.22" y2="85.22"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="71.5" x2="79.5" y1="88.22" y2="88.22"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="75.5" x2="75.5" y1="89.22" y2="81.22"></line><!--MD5=[32dad0d23e56bcab56fb2e516ab3626f]
+link ChangeTaskStatus to User--><path codeline="28" d="M75.5,249.47 C75.5,263.8 75.5,278.96 75.5,292.55 " fill="none" id="ChangeTaskStatus-User" style="stroke:#A80036;stroke-width:1.0;"></path><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="81.5" y1="292.8" y2="300.8"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="69.5" y1="292.8" y2="300.8"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="75.5" x2="75.5" y1="292.8" y2="300.8"></line><ellipse cx="75.5" cy="286.8" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.0;fill:none;"></ellipse><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="71.5" x2="79.5" y1="245.09" y2="245.09"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="71.5" x2="79.5" y1="248.09" y2="248.09"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="75.5" x2="75.5" y1="249.09" y2="241.09"></line><!--MD5=[2df82892c365b29adfb8ba3ebb94d3e0]
+link ChangeTaskStatus to TaskStatus--><path codeline="29" d="M152.43,191 C158.58,191 164.72,191 170.87,191 " fill="none" id="ChangeTaskStatus-TaskStatus" style="stroke:#A80036;stroke-width:1.0;"></path><line style="stroke:#A80036;stroke-width:1.0;" x1="171.25" x2="179.25" y1="191" y2="185"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="171.25" x2="179.25" y1="191" y2="197"></line><line style="stroke:#A80036;stroke-width:1.0;" x1="171.25" x2="179.25" y1="191" y2="191"></line><ellipse cx="165.25" cy="191" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.0;fill:none;"></ellipse><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="148.22" x2="148.22" y1="195" y2="187"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="151.22" x2="151.22" y1="195" y2="187"></line><line style="stroke:#A80036;stroke-width:1.0;fill:none;" x1="152.22" x2="144.22" y1="191" y2="191"></line><!--MD5=[521b38093672248952bc126f8a120817]
+@startuml
+entity Task {
+  + id: string
+  - -
+  title: string
+}
+
+entity User {
+  + id: string
+  - -
+  name: string
+}
+
+entity TaskStatus {
+  + id: string
+  - -
+  name: string
+}
+
+entity ChangeTaskStatus {
+  + id: string
+  - -
+  taskId: string
+  taskStatusId: string
+  userId: string
+}
+
+Task ||- -o{ ChangeTaskStatus
+ChangeTaskStatus||- -o{ User
+ChangeTaskStatus ||-o{ TaskStatus
+@enduml
+
+PlantUML version 1.2021.12(Wed Oct 06 01:01:58 JST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: JP
+--></g></svg>
