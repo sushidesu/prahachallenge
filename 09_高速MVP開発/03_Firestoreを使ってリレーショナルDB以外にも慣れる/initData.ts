@@ -3,9 +3,18 @@ import { DATABASE_PATH, Task, TaskStatus, User, WithoutId } from "./models.ts";
 
 const initData = async () => {
   const tasks: WithoutId<Task>[] = [
-    { title: "DNSを学ぼう" },
-    { title: "TypeScriptで色んな型を作ってみよう" },
-    { title: "Cloudflare D1を使ってみよう" },
+    {
+      title: "DNSを学ぼう",
+      description: "digコマンドを使って普段使っているwebサイトのdnsレコードを調べてみよう！",
+    },
+    {
+      title: "TypeScriptで色んな型を作ってみよう",
+      description: "Pick<T>を自作してみよう！",
+    },
+    {
+      title: "Cloudflare D1を使ってみよう",
+      description: "特大課題のデータベースをD1に移行してみよう！",
+    },
   ];
   const users: WithoutId<User>[] = [
     { name: "Eric Evans" },
