@@ -1,5 +1,20 @@
-import { firestore } from "https://deno.land/x/dfirestore@v0.3.11/mod.ts";
-import { DATABASE_PATH, Task, TaskStatus, User, WithoutId } from "./models.ts";
+// @deno-types="https://cdn.esm.sh/v58/firebase@9.8.1/firestore/dist/firestore/index.d.ts"
+import {
+  addDoc,
+  collection,
+  doc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-lite.js";
+import {
+  ChangeTaskStatus,
+  DATABASE_PATH,
+  Task,
+  TaskStatus,
+  TaskStatusTable,
+  User,
+  WithoutId,
+} from "./models.ts";
+import { firestore } from "./firebase.ts";
 
 const initData = async () => {
   const tasks: WithoutId<Task>[] = [
@@ -31,141 +46,94 @@ const initData = async () => {
       name: "Rob Pike",
     },
   ];
-  const taskStatus: TaskStatus[] = [
-    {
-      id: "unfinished",
+  const taskStatus: Record<TaskStatus["id"], TaskStatus> = {
+    "unfinished": {
+      id: "finished",
       name: "未完了",
     },
-    {
-      id: "finished",
+    "finished": {
+      id: "unfinished",
       name: "完了",
     },
-  ];
+  };
 
   console.log("--- CREATE Users");
-  await Promise.all(
-    users.map((user) =>
-      firestore.createDocument({
-        collection: DATABASE_PATH["USERS"]["path"],
-        value: {
-          name: {
-            stringValue: user.name,
-          },
-        },
-      })
-    ),
+  const usersCollection = collection(firestore, DATABASE_PATH.USERS.path);
+  const usersCreated = await Promise.all(
+    users.map(async (user) => {
+      const d = await addDoc(usersCollection, user);
+      return {
+        id: d.id,
+        ...user,
+      };
+    }),
   );
   console.log("--- CREATE Tasks");
-  await Promise.all(
-    tasks.map((task) =>
-      firestore.createDocument({
-        collection: DATABASE_PATH["TASKS"]["path"],
-        value: {
-          name: {
-            stringValue: task.title,
-          },
-        },
-      })
-    ),
+  const tasksCollection = collection(firestore, DATABASE_PATH.TASKS.path);
+  const tasksCreated = await Promise.all(
+    tasks.map(async (task) => {
+      const d = await addDoc(tasksCollection, task);
+      return {
+        id: d.id,
+        ...task,
+      };
+    }),
   );
   console.log("--- CREATE TaskStatus");
-  await Promise.all(
-    taskStatus.map((status) =>
-      firestore.createDocument({
-        collection: DATABASE_PATH["TASK_STATUS"]["path"],
-        id: status.id,
-        value: {
-          name: {
-            stringValue: status.name,
-          },
-        },
-      })
-    ),
+  const taskStatusCollection = collection(
+    firestore,
+    DATABASE_PATH.TASK_STATUS.path,
   );
-
-  // 作成したデータを取得
-  const tasksCreated = await firestore.getDocument({
-    collection: DATABASE_PATH["TASKS"]["path"],
-  });
-  const usersCreated = await firestore.getDocument({
-    collection: DATABASE_PATH["USERS"]["path"],
-  });
-  const taskStatusCreated = {
-    taskFinished: await firestore.getDocument({
-      collection: DATABASE_PATH["TASK_STATUS"]["path"],
-      id: "finished",
-    }),
-    taskUnfinished: await firestore.getDocument({
-      collection: DATABASE_PATH["TASK_STATUS"]["path"],
-      id: "unfinished",
-    }),
-  };
+  await Promise.all(
+    [
+      setDoc(
+        doc(taskStatusCollection, taskStatus.finished.id),
+        taskStatus.finished,
+      ),
+      setDoc(
+        doc(taskStatusCollection, taskStatus.unfinished.id),
+        taskStatus.unfinished,
+      ),
+    ],
+  );
 
   const randomStatusId = (): TaskStatus["id"] => {
     return Math.random() < 0.3 ? "finished" : "unfinished";
   };
 
-  /**
-   * "projects/prahachallenge-ddd/databases/(default)/documents/tasks/af6rgmigUDPXYalbXpNI" から id を取得する
-   */
-  const getId = (name: string): string => {
-    return name.split("/")[6];
-  };
-
   console.log("--- Register TaskStatus");
-  const joined = tasksCreated.documents.flatMap((task) =>
-    usersCreated.documents.map((user) => [task, user] as const)
+  const joined = tasksCreated.flatMap((task) =>
+    usersCreated.map((user) => [task, user] as const)
+  );
+  const changeTaskStatusCollection = collection(
+    firestore,
+    DATABASE_PATH.CHANGE_TASK_STATUS.path,
+  );
+  const taskStatusTableCollection = collection(
+    firestore,
+    DATABASE_PATH.TASK_STATUS_TABLE.path,
   );
   await Promise.all(
-    joined.map(async (taskWithUser) => {
-      const task = taskWithUser[0];
-      const user = taskWithUser[1];
-      const taskId = task.name;
-      const userId = user.name;
+    joined.map(async ([task, user]) => {
       const taskStatusId = randomStatusId();
-      const taskStatus = taskStatusId === "finished"
-        ? taskStatusCreated.taskFinished
-        : taskStatusCreated.taskUnfinished;
-
-      console.log(`create: ${taskId}, ${userId}`);
-      const hoge = await firestore.createDocument({
-        collection: DATABASE_PATH["CHANGE_TASK_STATUS"]["path"],
-        value: {
-          taskId: {
-            referenceValue: taskId,
-          },
-          userId: {
-            referenceValue: userId,
-          },
-          taskStatusId: {
-            referenceValue: (taskStatus as any).name,
-          },
-        },
-      });
-      console.log(hoge);
-      const fuga = await firestore.createDocument({
-        collection: DATABASE_PATH["TASK_STATUS_TABLE"]["path"],
-        value: {
-          taskId: {
-            referenceValue: task.name,
-          },
-          userId: {
-            stringValue: getId(userId),
-          },
-          userName: {
-            stringValue: user.fields["name"].stringValue,
-          },
-          taskStatusId: {
-            stringValue: taskStatusId,
-          },
-          taskStatusName: {
-            stringValue: taskStatus.fields["name"].stringValue,
-          },
-        },
-      });
-      console.log(fuga);
+      const changeTaskStatus: WithoutId<ChangeTaskStatus> = {
+        taskId: task.id,
+        userId: user.id,
+        taskStatusId,
+      };
+      const taskStatusTable: WithoutId<TaskStatusTable> = {
+        taskId: task.id,
+        userId: user.id,
+        userName: user.name,
+        taskStatusId,
+        taskStatusName: taskStatus[taskStatusId].name,
+      };
+      await addDoc(changeTaskStatusCollection, changeTaskStatus);
+      await addDoc(taskStatusTableCollection, taskStatusTable);
     }),
   );
+
+  console.log("--- done");
 };
 
 initData();

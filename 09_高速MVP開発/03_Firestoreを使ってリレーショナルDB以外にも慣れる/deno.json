@@ -1,6 +1,8 @@
 {
   "$scheme": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "tasks": {
-    "delete-all-collections": "firebase firestore:delete --all-collections"
+    "delete-all-collections": "firebase firestore:delete --all-collections",
+    "init-database": "deno run --allow-net --allow-read src/initData.ts",
+    "setup": "deno task delete-all-collections && deno task init-database"
   }
 }
