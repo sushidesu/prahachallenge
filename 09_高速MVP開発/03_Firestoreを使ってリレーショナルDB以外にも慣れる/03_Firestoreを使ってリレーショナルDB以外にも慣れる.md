@@ -30,6 +30,7 @@ entity Task {
   + id: string
   --
   title: string
+  description: string
 }
 
 entity User {
@@ -53,15 +54,15 @@ entity ChangeTaskStatus {
 }
 
 Task ||--o{ ChangeTaskStatus
-ChangeTaskStatus||--o{ User
-ChangeTaskStatus ||-o{ TaskStatus
+ChangeTaskStatus }o--|| User
+ChangeTaskStatus }o-|| TaskStatus
 ```
 
 </details>
 
 #### 2. Read Light / Write Heavy を考える
 
-Airtableのように、タスク一覧+ユーザーごとのタスクステータスをReadしやすいようにする
+ユーザーごとの課題一覧・タスクステータス一覧をReadしやすいように設計する。
 
 現在の設計では課題一覧の取得は以下のような流れになる。問い合わせ回数が多く取得処理が複雑になっている。
 
@@ -72,38 +73,39 @@ Airtableのように、タスク一覧+ユーザーごとのタスクステー�
 1. マージする
 1. Taskのid順に並び替える
 
-そこで、 `TaskStatusTable` テーブルを作成し、少ない問い合わせ回数で課題位一覧を取得できるようにする。
+そこで、 `User` のサブコレクションとして `TaskStatusList` テーブルを作成し、少ない問い合わせ回数で課題位一覧を取得できるようにする。
 
-`TaskStatusTable` では、タスクごとにユーザーの情報・ステータスの情報を非正規化して保持している。
+`TaskStatusList` では、ユーザーごとに課題の情報・ステータスの情報を非正規化して保持している。
 
 ![diagram2](./images/diagram2.svg)
 
 <details><summary>ER図コード</summary>
 
 ```plantuml
-entity TaskStatusTable {
-  + id: string
-  --
-  taskId: string
-  userId: string
-  userName: string
-  taskStatusId: string
-  taskStatusName: string
-}
-
 entity Task {
   + id: string
   --
   title: string
+  description: string
 }
-
-Task ||-|| TaskStatusTable
-
 entity User {
   + id: string
   --
   name: string
 }
+
+entity TaskStatusList {
+  + id: string
+  --
+  - userId: string
+  taskId: string
+  taskName: string
+  taskDescription: string
+  taskStatusId: string
+  taskStatusName: string
+}
+
+User ||-o{ TaskStatusList
 
 entity TaskStatus {
   + id: string
@@ -120,8 +122,8 @@ entity ChangeTaskStatus {
 }
 
 Task ||--o{ ChangeTaskStatus
-ChangeTaskStatus||--o{ User
-ChangeTaskStatus ||-o{ TaskStatus
+ChangeTaskStatus }o--|| User
+ChangeTaskStatus }o-|| TaskStatus
 ```
 
 </details>
