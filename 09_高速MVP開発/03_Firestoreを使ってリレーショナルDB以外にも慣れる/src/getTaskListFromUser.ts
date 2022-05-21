@@ -50,3 +50,6 @@ export const getTaskListFromUser = async (userId: string): Promise<
     questions: tasks,
   };
 };
+
+const r = await getTaskListFromUser("xJOiYGrv6wgVeUhyIAFs");
+console.info(r);
