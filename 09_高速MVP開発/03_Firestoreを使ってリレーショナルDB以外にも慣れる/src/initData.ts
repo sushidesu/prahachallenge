@@ -50,13 +50,13 @@ const initData = async () => {
     },
   ];
   const taskStatus: Record<TaskStatus["id"], TaskStatus> = {
-    "unfinished": {
-      id: "finished",
-      name: "未完了",
-    },
     "finished": {
-      id: "unfinished",
+      id: "finished",
       name: "完了",
+    },
+    "unfinished": {
+      id: "unfinished",
+      name: "未完了",
     },
   };
 
