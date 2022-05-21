@@ -61,22 +61,28 @@ const initData = async () => {
   const usersCollection = collection(firestore, DATABASE_PATH.USERS.path);
   const usersCreated = await Promise.all(
     users.map(async (user) => {
-      const d = await addDoc(usersCollection, user);
-      return {
-        id: d.id,
-        ...user,
+      // idを自動生成するために、一度参照を取得する
+      const newUserRef = doc(usersCollection);
+      const value: User = {
+        id: newUserRef.id,
+        name: user.name,
       };
+      await setDoc(newUserRef, value);
+      return value;
     }),
   );
   console.log("--- CREATE Tasks");
   const tasksCollection = collection(firestore, DATABASE_PATH.TASKS.path);
   const tasksCreated = await Promise.all(
     tasks.map(async (task) => {
-      const d = await addDoc(tasksCollection, task);
-      return {
-        id: d.id,
-        ...task,
+      const newTaskRef = doc(tasksCollection);
+      const value: Task = {
+        id: newTaskRef.id,
+        title: task.title,
+        description: task.description,
       };
+      await setDoc(newTaskRef, value);
+      return value;
     }),
   );
   console.log("--- CREATE TaskStatus");
