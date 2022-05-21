@@ -31,22 +31,4 @@ export type User = {
   name: string;
 };
 
-export const DATABASE_PATH = {
-  USERS: {
-    path: "users",
-  },
-  TASKS: {
-    path: "tasks",
-  },
-  CHANGE_TASK_STATUS: {
-    path: "changeTaskStatus",
-  },
-  TASK_STATUS: {
-    path: "taskStatus",
-  },
-  TASK_LIST: {
-    genPath: (userId: string) => `users/${userId}/taskList/`,
-  },
-};
-
 export type WithoutId<T extends { id: string }> = Omit<T, "id">;
