@@ -1,6 +1,5 @@
 // @deno-types="https://cdn.esm.sh/v58/firebase@9.8.1/firestore/dist/firestore/index.d.ts"
 import {
-  addDoc,
   collection,
   doc,
   setDoc,
@@ -9,8 +8,8 @@ import {
   ChangeTaskStatus,
   DATABASE_PATH,
   Task,
+  TaskListItem,
   TaskStatus,
-  TaskStatusTable,
   User,
   WithoutId,
 } from "./models.ts";
@@ -108,34 +107,43 @@ const initData = async () => {
   };
 
   console.log("--- Register TaskStatus");
-  const joined = tasksCreated.flatMap((task) =>
-    usersCreated.map((user) => [task, user] as const)
+  const joined = usersCreated.flatMap((user) =>
+    tasksCreated.map((task) => [user, task] as const)
   );
   const changeTaskStatusCollection = collection(
     firestore,
     DATABASE_PATH.CHANGE_TASK_STATUS.path,
   );
-  const taskStatusTableCollection = collection(
-    firestore,
-    DATABASE_PATH.TASK_STATUS_TABLE.path,
-  );
   await Promise.all(
-    joined.map(async ([task, user]) => {
+    joined.map(async ([user, task]) => {
       const taskStatusId = randomStatusId();
-      const changeTaskStatus: WithoutId<ChangeTaskStatus> = {
+
+      // タスクステータスを記録
+      const changeTaskStatusRef = doc(changeTaskStatusCollection);
+      const changeTaskStatus: ChangeTaskStatus = {
+        id: changeTaskStatusRef.id,
         taskId: task.id,
         userId: user.id,
         taskStatusId,
       };
-      const taskStatusTable: WithoutId<TaskStatusTable> = {
+      await setDoc(changeTaskStatusRef, changeTaskStatus);
+
+      // ユーザーのタスク一覧を非正規化して保存する
+      const taskListCollection = collection(
+        firestore,
+        DATABASE_PATH.TASK_LIST.genPath(user.id),
+      );
+      const taskListItemRef = doc(taskListCollection);
+      const taskListItem: TaskListItem = {
+        id: taskListItemRef.id,
         taskId: task.id,
         userId: user.id,
-        userName: user.name,
+        taskTitle: task.title,
+        taskDescription: task.description,
         taskStatusId,
         taskStatusName: taskStatus[taskStatusId].name,
       };
-      await addDoc(changeTaskStatusCollection, changeTaskStatus);
-      await addDoc(taskStatusTableCollection, taskStatusTable);
+      await setDoc(taskListItemRef, taskListItem);
     }),
   );
 

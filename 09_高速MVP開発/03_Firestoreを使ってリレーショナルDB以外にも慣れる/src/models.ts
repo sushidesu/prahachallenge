@@ -4,11 +4,12 @@ export type Task = {
   description: string;
 };
 
-export type TaskStatusTable = {
+export type TaskListItem = {
   id: string;
-  taskId: string;
   userId: string;
-  userName: string;
+  taskId: string;
+  taskTitle: string;
+  taskDescription: string;
   taskStatusId: string;
   taskStatusName: string;
 };
@@ -43,8 +44,8 @@ export const DATABASE_PATH = {
   TASK_STATUS: {
     path: "taskStatus",
   },
-  TASK_STATUS_TABLE: {
-    path: "taskStatusTable",
+  TASK_LIST: {
+    genPath: (userId: string) => `users/${userId}/taskList/`,
   },
 };
 
