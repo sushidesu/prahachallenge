@@ -1,16 +1,21 @@
+import { createAirtableClient } from "../src/airtableClient"
 import { createCacheManager } from "../src/cacheManager"
 import { createCacheFetcher } from "../src/fetchWithCache"
 import { House } from "../src/house"
 import { parserS } from "../src/parser"
 
-const scrape = async (url: string): Promise<House> => {
+export const scrape = async (url: string): Promise<House> => {
   const cacheManager = createCacheManager({
     pathToKeyFile: "./.cache/keys.json",
     cacheDir: "./.cache",
   })
   const fetchWithCache = createCacheFetcher(cacheManager)
+  const airtableClient = createAirtableClient()
+
   const body = await fetchWithCache(url)
   const house = parserS(url, body)
+  await airtableClient.insert([house])
+
   return house
 }
 
