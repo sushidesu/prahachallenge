@@ -8,9 +8,8 @@
     "scrape:build": "esbuild scripts/scrape.ts --bundle --platform=node --outdir=dist",
     "scrape:run": "node dist/scrape.js",
     "scrape": "yarn run scrape:build && yarn run scrape:run",
-    "server:build": "esbuild src/server.ts --bundle --platform=node --outdir=dist",
-    "server:start": "node dist/server.js",
-    "server": "yarn run server:build && yarn run server:start"
+    "build": "esbuild src/main.ts --bundle --platform=node --outdir=dist",
+    "start": "yarn run build && node dist/main.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",
