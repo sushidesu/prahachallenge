@@ -1,6 +1,6 @@
 import "dotenv/config"
-import Airtable from "airtable"
-import { format } from "date-fns"
+import Airtable, { Record, FieldSet } from "airtable"
+import { format, parse } from "date-fns"
 import { House } from "./house"
 
 export type AirtableClient = {
@@ -52,8 +52,8 @@ export const createAirtableClient = (): AirtableClient => {
     },
 
     getAll: async () => {
-      // TODO:
-      return []
+      const records = await table.select().all()
+      return records.map(fromField)
     },
   }
 }
@@ -76,4 +76,28 @@ const toField = (house: House): HouseFields => ({
   Size: house.size,
   Url: house.url,
   BrokeRageFee: house.brokeRageFee,
+})
+
+const fromField = (record: Record<FieldSet>): House => ({
+  name: record.get("Name") as string,
+  layout: record.get("Layout") as string,
+  type: record.get("Type") as string,
+  structure: record.get("Structure") as string,
+  maxFloor: record.get("MaxFloor") as number,
+  floor: record.get("Floor") as number,
+  address: record.get("Address") as string,
+  age: record.get("Age") as number,
+  direction: record.get("Direction") as string,
+  publishedAt: parse(
+    record.get("PublishedAt") as string,
+    "yyyy-MM-dd",
+    new Date()
+  ),
+  rent: record.get("Rent") as number,
+  managementFee: record.get("ManagementFee") as number,
+  securityDeposit: record.get("SecurityDeposit") as number,
+  keyMoney: record.get("KeyMoney") as number,
+  size: record.get("Size") as number,
+  url: record.get("Url") as string,
+  brokeRageFee: record.get("BrokeRageFee") as string,
 })
